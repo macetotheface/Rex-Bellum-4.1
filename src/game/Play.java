@@ -42,8 +42,7 @@ public class Play extends BasicGameState{
 	private farm farmStats = new farm();
 	private market marketStats = new market();
 	private tile[][] tileArray = new tile [35][35];
-	private int fuckGithub;
-	private int killNiggers;
+	
 	public Play(int state) throws SlickException{
 		//
 	}
@@ -78,6 +77,7 @@ public class Play extends BasicGameState{
 		g.drawRect(560, 149, 158, 25);
 		g.drawRect(560, 174, 75, 75);
 		g.drawRect(560, 174, 158, 250);
+		factionCrest.draw(567, 0, 45, 45);
 		archerani.draw(archerx,archery);
 		horseani.draw(100,100);
 		knightani.draw(300,300);
