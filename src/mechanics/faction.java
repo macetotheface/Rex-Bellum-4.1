@@ -8,73 +8,48 @@ public class faction {
 	private int income;
 	private int manpowerIncome;
 	private int numOfUnits;
+	private int factionType;
 	private barracks barrackStats;
 	private farm farmStats;
 	private market marketStats;
 	private boolean isPlayer;
-	private int decisionMade;// 0 = none, 1 = buildUnits, 2 = buildMarkets, 3 = buildFarms,4 = buildBarracks
+	private tile [][] tileArray;
 
-	public faction(boolean isPlayerBool) {
+	public faction(boolean isPlayerBool, int factionNum) {
 		//Gives starting values
-		this.decisionMade = 0;
 		this.numOfUnits = 0;
 		this.gold = 300;
 		this.manpower = 150;
 		this.income = 10;
 		this.manpowerIncome = 25;
 		this.isPlayer = isPlayerBool;
+		this.factionType = factionNum;
 	}
 
 	// Goes through and builds a few markets/barracks/farms at the start to get
-	// it all going
-
-	public void start() {
-
-	}
-
-	public void decision() {
-		
+	// it all going (FOR AI FACTIONS)
+	
+	public void decision(tile[][] tileArrayTemp) {
+		this.tileArray = tileArrayTemp;
 		//choosing what to buy
-		switch (decisionMade) {
-		case 0:
-			if (this.income < 4 && this.manpowerIncome < 40) {
-				buildFarms(); // Build farms if not enough money and men
-				this.decisionMade = 3;
-			} else if (this.manpowerIncome < 80) {
-				buildBarracks(); // Build barracks if not enough men
-				this.decisionMade = 4;
-			} else if (this.income < 8) {
-				buildMarkets(); // Build markets if not making enough money
-				this.decisionMade = 2;
-			} else {
-				this.decisionMade = 1;
-			}
-			break;
-		case 1:
-			// build units
-			this.decisionMade = 0;
-			break;
-		case 2:
-			// build Markets if enough money
-			if (this.marketStats.getPrice() < this.gold) {
-				this.gold -= this.marketStats.getPrice();
-				this.decisionMade = 0;
-			}
-			break;
-		case 3:
-			// build farms if enough money
+		if (this.income < 4 && this.manpowerIncome < 40) {
+			//Build farms
 			if (this.farmStats.getPrice() < this.gold) {
-				this.gold -= this.farmStats.getPrice();
-				this.decisionMade = 0;
+				aiBuildFarms(2);
 			}
-			break;
-		case 4:
-			// build Markets if enough money
+		} else if (this.manpowerIncome < 80) {
+			//Build barracks
 			if (this.barrackStats.getPrice() < this.gold) {
-				this.gold -= this.barrackStats.getPrice();
-				this.decisionMade = 0;
+				aiBuildBarracks(2);
 			}
-			break;
+		} else if (this.income < 8) {
+			//Build a market
+			if (this.marketStats.getPrice() < this.gold) {
+				aiBuildMarkets(2);
+			}
+		} else {
+			//Build units
+			
 		}
 	}
 
@@ -83,16 +58,90 @@ public class faction {
 		this.manpower += this.manpowerIncome;
 	}
 
-	private static void buildMarkets() {
+	public void factionTest(tile[][] tileArrayTemp){
+		this.tileArray = tileArrayTemp;
+		System.out.println(tileArray[0][0].getFaction() + " test1");
+		tileArray[0][0].setFaction(3);
+	}
+	
+	//The ai goes through and decides where to build a market
+	private void aiBuildMarkets(int check) {
+		boolean built = false;
+		for(int i = 0; i < this.tileArray.length; i++){
+			for(int j = 0; j < this.tileArray[0].length; j++){
+				if (this.tileArray[i][j].getTerrainOnTile().getBonusMarket() > check && this.tileArray[i][j].getFaction() == this.factionType && this.tileArray[i][j].isHasmarket() == false){
+					buildMarket(i,j);
+					built = true;
+				}
+			}
+		}
+		
+		if (built == false && check > 0){
+			check--;
+			aiBuildMarkets(check);
+		}
+		
+		//Maybe do something if run out of available spots to build
+	}
+	
+	//Changes stats to account for a new market
+	private void buildMarket(int r, int c){
+		this.income+= this.marketStats.getGoldPerTurn() + this.tileArray[r][c].getTerrainOnTile().getBonusMarket();
+		this.tileArray[r][c].setHasmarket(true);
+		this.gold -= this.marketStats.getPrice();
+	}
+	
+	private void aiBuildFarms(int check) {
+		boolean built = false;
+		for(int i = 0; i < this.tileArray.length; i++){
+			for(int j = 0; j < this.tileArray[0].length; j++){
+				if (this.tileArray[i][j].getTerrainOnTile().getBonusFarm() > check && this.tileArray[i][j].getFaction() == this.factionType && this.tileArray[i][j].isHasFarm() == false){
+					buildFarm(i,j);
+					built = true;
+				}
+			}
+		}
+		
+		if (built == false && check > 0){
+			check--;
+			aiBuildMarkets(check);
+		}
 
+		//Maybe do something if run out of available spots to build
 	}
 
-	private static void buildFarms() {
-
+	//Changes stats to account for a new market
+	private void buildFarm(int r, int c){
+		this.income+= this.farmStats.getGoldPerTurn() + this.tileArray[r][c].getTerrainOnTile().getBonusFarm();
+		this.manpowerIncome += this.farmStats.getMenPerTurn() + (this.tileArray[r][c].getTerrainOnTile().getBonusFarm()*10);
+		this.tileArray[r][c].setHasmarket(true);
+		this.gold -= this.farmStats.getPrice();
 	}
 
-	private static void buildBarracks() {
+	private void aiBuildBarracks(int check) {
+		boolean built = false;
+		for(int i = 0; i < this.tileArray.length; i++){
+			for(int j = 0; j < this.tileArray[0].length; j++){
+				if (this.tileArray[i][j].getTerrainOnTile().getBonusBarracks() > check && this.tileArray[i][j].getFaction() == this.factionType && this.tileArray[i][j].isHasBarracks() == false){
+					buildBarracks(i,j);
+					built = true;
+				}
+			}
+		}
 
+		if (built == false && check > 0){
+			check--;
+			aiBuildBarracks(check);
+		}
+
+		//Maybe do something if run out of available spots to build
+	}
+
+	//Changes stats to account for a new market
+	private void buildBarracks(int r, int c){
+		this.manpowerIncome += this.barrackStats.getMenPerTurn() + (this.tileArray[r][c].getTerrainOnTile().getBonusBarracks()*10);
+		this.tileArray[r][c].setHasBarracks(true);
+		this.gold -= this.barrackStats.getPrice();
 	}
 
 	public boolean isPlayer() {
