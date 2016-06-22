@@ -77,14 +77,14 @@ public class Play extends BasicGameState{
 		
 		//g.scale(1f, 1f);
 		//g.scale(Display.getWidth()/720, Display.getHeight()/600);
-		map.render(0,0,0,-3,720,600);
+		map.render(0,0,0,0,720,600);
 		//holder.draw(100,100,32,32);
 		//g.draw()
 		g.drawString(mouse, 50, 50);
 		
 		g.drawRect(560, 0, 158, 47);
 		g.drawRect(560, 48, 158, 551);
-		g.drawRect(0, 0, 559, 47);
+		g.drawRect(0, 560, 560, 47);
 		g.drawRect(560, 48, 158, 100);
 		g.drawRect(560, 149, 158, 25);
 		g.drawRect(560, 174, 75, 75);
@@ -92,11 +92,11 @@ public class Play extends BasicGameState{
 		g.drawRect(560, 349, 158, 140);
 		
 		factionCrest.draw(567, 0, 45, 45);
-		uiElements[0].draw(10,4,35,35);
-		uiElements[1].draw(110,10,35,35);
-		uiElements[2].draw(225,10,35,35);
-		uiElements[3].draw(315,10,35,35);
-		uiElements[4].draw(445,10,35,35);
+		uiElements[0].draw(10,566,35,35);
+		uiElements[1].draw(110,567,35,35);
+		uiElements[2].draw(225,567,35,35);
+		uiElements[3].draw(315,567,35,35);
+		uiElements[4].draw(445,567,35,35);
 		
 		g.drawString(factionKing, 620, 10);
 		
@@ -120,8 +120,9 @@ public class Play extends BasicGameState{
 		mouse = "Mouse position x:" + xpos + "y" + ypos; 
 		boolean isMouseClicked = gc.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON);
 		int tileLocationX = Math.round(xpos)/map.getTileWidth();
-		int tileLocationY = Math.round(600-ypos)/(map.getTileHeight()+3);
-		if(isMouseClicked == true && ypos<560 && ypos>0 && xpos>0 && xpos<560) {
+		int tileLocationY = Math.round(600-ypos)/(map.getTileHeight());
+		
+		if(isMouseClicked == true) {
 			tileID = (map.getTileId(tileLocationX,tileLocationY,terrainInput))-1;
 			//gc.sleep(16);
 			System.out.println(tileID);
@@ -181,11 +182,11 @@ public class Play extends BasicGameState{
 		return y;
 	}
 	private void printStats(int income, int bank, int manpower, int menCap,int men, int turn,Graphics g ){
-		g.drawString("Turn "+Integer.toString(turn), 50, 18);
-		g.drawString(Integer.toString(bank) + " Gold", 145, 18);
-		g.drawString(Integer.toString(income) + " G/T", 265, 18);
-		g.drawString(Integer.toString(manpower) + " ManPwr", 345, 18);
-		g.drawString(Integer.toString(men) + "/" + Integer.toString(menCap) , 485, 18);
+		g.drawString("Turn "+Integer.toString(turn), 50, 578);
+		g.drawString(Integer.toString(bank) + " Gold", 145, 578);
+		g.drawString(Integer.toString(income) + " G/T", 265, 578);
+		g.drawString(Integer.toString(manpower) + " ManPwr", 345, 578);
+		g.drawString(Integer.toString(men) + "/" + Integer.toString(menCap) , 485, 578);
 	}
 	
 		private void endTurn(){
