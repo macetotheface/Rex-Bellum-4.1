@@ -10,6 +10,6 @@ public class knight extends unit {
 		this.setBaseAttack(15);
 		this.setBaseMoves(3);
 		this.setCurrentAttack(this.getBaseAttack());
-		this.setSheet(new SpriteSheet("/res/orchorse0.png", 16,16));
+		this.setSheet(new SpriteSheet("/res/orcknight.png", 16,16));
 	}
 }
