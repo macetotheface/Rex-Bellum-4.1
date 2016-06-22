@@ -106,21 +106,14 @@ public class Play extends BasicGameState{
 		g.drawRect(560, 349, 158, 140);
 
 		factionCrest.draw(567, 0, 45, 45);
-<<<<<<< HEAD
+
 		uiElements[0].draw(10,566,35,35);
 		uiElements[1].draw(110,567,35,35);
 		uiElements[2].draw(225,567,35,35);
 		uiElements[3].draw(315,567,35,35);
 		uiElements[4].draw(445,567,35,35);
 		
-=======
-		uiElements[0].draw(10,4,35,35);
-		uiElements[1].draw(110,10,35,35);
-		uiElements[2].draw(225,10,35,35);
-		uiElements[3].draw(315,10,35,35);
-		uiElements[4].draw(445,10,35,35);
 
->>>>>>> refs/remotes/origin/master
 		g.drawString(factionKing, 620, 10);
 
 		terrain current = new terrain(tileID);
