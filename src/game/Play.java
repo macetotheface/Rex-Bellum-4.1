@@ -77,7 +77,7 @@ public class Play extends BasicGameState{
 		
 		//g.scale(1f, 1f);
 		//g.scale(Display.getWidth()/720, Display.getHeight()/600);
-		map.render(0,0,0,-3,720,600);
+		map.render(0,0,0,-3,560,560);
 		//holder.draw(100,100,32,32);
 		//g.draw()
 		g.drawString(mouse, 50, 50);
@@ -119,9 +119,12 @@ public class Play extends BasicGameState{
 		ypos = Mouse.getY();
 		mouse = "Mouse position x:" + xpos + "y" + ypos; 
 		boolean isMouseClicked = gc.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON);
-		int tileLocationX = Math.round(xpos)/map.getTileWidth();
-		int tileLocationY = Math.round(600-ypos)/(map.getTileHeight()+3);
-		if(isMouseClicked == true && ypos<560 && ypos>0 && xpos>0 && xpos<560) {
+		int tileLocationX = (xpos)/16;
+		int tileLocationY = (int) ((600-ypos)/(16*0.3));
+		//if(tileLocationY > 16) tileLocationY+=2;
+			 // if(tileLocationY < 16) tileLocationY--;
+		if(isMouseClicked == true) {
+			
 			tileID = (map.getTileId(tileLocationX,tileLocationY,terrainInput))-1;
 			//gc.sleep(16);
 			System.out.println(tileID);

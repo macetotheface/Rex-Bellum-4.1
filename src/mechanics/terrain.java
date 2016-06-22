@@ -110,7 +110,7 @@ public class terrain {
 				this.image = "/res/Village.png";
 				this.crossPenalty = 0;
 				break;
-			case 19:
+			case 30:
 				//Village
 				this.defenderMod = 2;
 				this.archerMod = 1;
@@ -121,7 +121,7 @@ public class terrain {
 				this.image = "/res/Village.png";
 				this.crossPenalty = 0;
 				break;
-			case 30:
+			case 19:
 				//Keep
 				this.defenderMod = 4;
 				this.archerMod = 2;
