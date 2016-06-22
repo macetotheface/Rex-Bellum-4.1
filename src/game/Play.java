@@ -42,8 +42,7 @@ public class Play extends BasicGameState{
 	private farm farmStats = new farm();
 	private market marketStats = new market();
 	private tile[][] tileArray = new tile [35][35];
-	private int fuckGithub;
-	private int killNiggers;
+	
 	public Play(int state) throws SlickException{
 		//
 	}
