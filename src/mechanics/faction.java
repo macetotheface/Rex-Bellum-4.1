@@ -4,20 +4,6 @@ import org.newdawn.slick.SlickException;
 
 public class faction {
 
-	private int manpower;
-	private int gold;
-	private int happiness;
-	private int income;
-	private int manpowerIncome;
-	private int numOfUnits;
-	private int factionType;
-	private barracks barrackStats;
-	private farm farmStats;
-	private market marketStats;
-	private boolean isPlayer;
-	private tile [][] tileArray;
-
-	public faction(boolean isPlayerBool, int factionNum) {
 	private int manpower;			//Holds the manpower of the faction
 	private int gold;				//Holds the gold of the faction
 	private int happiness;			//Holds the happiness of the faction
@@ -62,7 +48,6 @@ public class faction {
 	// Goes through and builds a few markets/barracks/farms at the start to get
 	// it all going (FOR AI FACTIONS)
 	
-	public void decision(tile[][] tileArrayTemp) {
 	public void decision(tile[][] tileArrayTemp) throws SlickException {
 		swordsman newSword = new swordsman();
 		int preferedX = 0;
@@ -87,7 +72,6 @@ public class faction {
 				aiBuildMarkets(2);
 			}
 		} else {
-			//Build units
 			
 			switch(factionType){
 			case 1:
@@ -95,14 +79,14 @@ public class faction {
 				for (int i = 0; i < this.tileArray.length; i++){
 					for (int j = 0; j < this.tileArray[0].length; j++){
 						//Reached the border on top, send unit to border
-						if (this.tileArray[i][j].getFaction() != factionType && this.tileArray[i][j - 1].isHasUnit() == false){
+						if (this.tileArray[i][j].getFaction() != factionType && this.tileArray[i][j - 1].isHasUnit() == false && this.tileArray[i][j - 1].getTerrainOnTile().isPassable() == true){
 							preferedX = i;
 							preferedY = j - 1;
 							j = tileArray[0].length;
 							i = tileArray.length;
 						}
 						//Reached the border on the right 
-						else if (this.tileArray[i][j].getFaction() != factionType && this.tileArray[i - 1][j].isHasUnit() == false){
+						else if (this.tileArray[i][j].getFaction() != factionType && this.tileArray[i - 1][j].isHasUnit() == false && this.tileArray[i - 1][j].getTerrainOnTile().isPassable() == true){
 							preferedX = i - 1;
 							preferedY = j;
 							j = tileArray[0].length;
@@ -113,7 +97,7 @@ public class faction {
 				//The borders are covered, so go back and find a random tile on the other side of the border
 				for (int i = 0; i < this.tileArray.length; i++){
 					for (int j = 0; j < this.tileArray[0].length; j++){
-						if (this.tileArray[i][j].getFaction() != this.factionType && this.tileArray[i][j].isHasUnit() == false){
+						if (this.tileArray[i][j].getFaction() != this.factionType && this.tileArray[i][j].isHasUnit() == false && this.tileArray[i][j].getTerrainOnTile().isPassable() == true){
 							preferedX = i;
 							preferedY = j;
 						}
@@ -126,14 +110,14 @@ public class faction {
 				for (int i = 0; i < this.tileArray.length; i++){
 					for (int j = 35; j < this.tileArray[0].length; j--){
 						//Reached the border on bottom, send unit to border
-						if (this.tileArray[i][j].getFaction() != factionType && this.tileArray[i][j + 1].isHasUnit() == false){
+						if (this.tileArray[i][j].getFaction() != factionType && this.tileArray[i][j + 1].isHasUnit() == false && this.tileArray[i][j + 1].getTerrainOnTile().isPassable() == true){
 							preferedX = i;
 							preferedY = j + 1;
 							j = tileArray[0].length;
 							i = tileArray.length;
 						}
 						//Reached the border on the right 
-						else if (this.tileArray[i][j].getFaction() != factionType && this.tileArray[i - 1][j].isHasUnit() == false){
+						else if (this.tileArray[i][j].getFaction() != factionType && this.tileArray[i - 1][j].isHasUnit() == false && this.tileArray[i - 1][j].getTerrainOnTile().isPassable() == true){
 							preferedX = i - 1;
 							preferedY = j;
 							j = tileArray[0].length;
@@ -144,7 +128,7 @@ public class faction {
 				//The borders are covered, so go back and find a random tile on the other side of the border
 				for (int i = 0; i < this.tileArray.length; i++){
 					for (int j = 0; j < this.tileArray[0].length; j++){
-						if (this.tileArray[i][j].getFaction() != this.factionType && this.tileArray[i][j].isHasUnit() == false){
+						if (this.tileArray[i][j].getFaction() != this.factionType && this.tileArray[i][j].isHasUnit() == false && this.tileArray[i][j].getTerrainOnTile().isPassable() == true){
 							preferedX = i;
 							preferedY = j;
 						}
@@ -156,14 +140,14 @@ public class faction {
 				for (int i = 35; i < this.tileArray.length; i--){
 					for (int j = 35; j < this.tileArray[0].length; j--){
 						//Reached the border on bottom, send unit to border
-						if (this.tileArray[i][j].getFaction() != factionType && this.tileArray[i][j + 1].isHasUnit() == false){
+						if (this.tileArray[i][j].getFaction() != factionType && this.tileArray[i][j + 1].isHasUnit() == false && this.tileArray[i][j + 1].getTerrainOnTile().isPassable() == true){
 							preferedX = i;
 							preferedY = j + 1;
 							j = tileArray[0].length;
 							i = tileArray.length;
 						}
 						//Reached the border on the left 
-						else if (this.tileArray[i][j].getFaction() != factionType && this.tileArray[i + 1][j].isHasUnit() == false){
+						else if (this.tileArray[i][j].getFaction() != factionType && this.tileArray[i + 1][j].isHasUnit() == false && this.tileArray[i + 1][j].getTerrainOnTile().isPassable() == true){
 							preferedX = i + 1;
 							preferedY = j;
 							j = tileArray[0].length;
@@ -174,7 +158,7 @@ public class faction {
 				//The borders are covered, so go back and find a random tile on the other side of the border
 				for (int i = 0; i < this.tileArray.length; i++){
 					for (int j = 0; j < this.tileArray[0].length; j++){
-						if (this.tileArray[i][j].getFaction() != this.factionType && this.tileArray[i][j].isHasUnit() == false){
+						if (this.tileArray[i][j].getFaction() != this.factionType && this.tileArray[i][j].isHasUnit() == false && this.tileArray[i][j].getTerrainOnTile().isPassable() == true){
 							preferedX = i;
 							preferedY = j;
 						}
@@ -186,14 +170,14 @@ public class faction {
 				for (int i = 35; i < this.tileArray.length; i--){
 					for (int j = 0; j < this.tileArray[0].length; j++){
 						//Reached the border on top, send unit to border
-						if (this.tileArray[i][j].getFaction() != factionType && this.tileArray[i][j - 1].isHasUnit() == false){
+						if (this.tileArray[i][j].getFaction() != factionType && this.tileArray[i][j - 1].isHasUnit() == false && this.tileArray[i][j - 1].getTerrainOnTile().isPassable() == true){
 							preferedX = i;
 							preferedY = j - 1;
 							j = tileArray[0].length;
 							i = tileArray.length;
 						}
 						//Reached the border on the left
-						else if (this.tileArray[i][j].getFaction() != factionType && this.tileArray[i + 1][j].isHasUnit() == false){
+						else if (this.tileArray[i][j].getFaction() != factionType && this.tileArray[i + 1][j].isHasUnit() == false && this.tileArray[i + 1][j].getTerrainOnTile().isPassable() == true){
 							preferedX = i + 1;
 							preferedY = j;
 							j = tileArray[0].length;
@@ -204,7 +188,7 @@ public class faction {
 				//The borders are covered, so go back and find a random tile on the other side of the border
 				for (int i = 0; i < this.tileArray.length; i++){
 					for (int j = 0; j < this.tileArray[0].length; j++){
-						if (this.tileArray[i][j].getFaction() != this.factionType && this.tileArray[i][j].isHasUnit() == false){
+						if (this.tileArray[i][j].getFaction() != this.factionType && this.tileArray[i][j].isHasUnit() == false && this.tileArray[i][j].getTerrainOnTile().isPassable() == true){
 							preferedX = i;
 							preferedY = j;
 						}
@@ -216,30 +200,13 @@ public class faction {
 			//Build units
 			if (this.tileArray[capitalLocation[0]][capitalLocation[1]].isHasUnit() == false){
 				this.numOfUnits ++;
+				this.income -= newSword.getUpkeep();
 				this.tileArray[capitalLocation[0]][capitalLocation[1]].setHasUnit(true);
 				this.tileArray[capitalLocation[0]][capitalLocation[1]].setUnitOnTile(newSword);
 				this.manpower -= newSword.getBaseHealth();
 				this.gold -= newSword.getPrice();
-				
 				this.tileArray[capitalLocation[0]][capitalLocation[1]].getUnitOnTile().setPreferedX(preferedX);
 				this.tileArray[capitalLocation[0]][capitalLocation[1]].getUnitOnTile().setPreferedY(preferedY);
-
-				//Update GUI
-			}
-			else if(this.tileArray[capitalLocation[0] + 1][capitalLocation[1] + 1].isHasUnit() == false){
-				this.numOfUnits ++;
-				this.tileArray[capitalLocation[0] + 1][capitalLocation[1] + 1].setHasUnit(true);
-				this.tileArray[capitalLocation[0] + 1][capitalLocation[1] + 1].setUnitOnTile(newSword);
-				this.manpower -= newSword.getBaseHealth();
-				this.gold -= newSword.getPrice();
-				//Update GUI
-			}
-			else if(this.tileArray[capitalLocation[0] - 1][capitalLocation[1] - 1].isHasUnit() == false){
-				this.numOfUnits ++;
-				this.tileArray[capitalLocation[0] - 1][capitalLocation[1] - 1].setHasUnit(true);
-				this.tileArray[capitalLocation[0] - 1][capitalLocation[1] - 1].setUnitOnTile(newSword);
-				this.manpower -= newSword.getBaseHealth();
-				this.gold -= newSword.getPrice();
 				//Update GUI
 			}
 		}
@@ -250,14 +217,69 @@ public class faction {
 		for (int i = 0; i < tileArray.length; i++){
 			for (int j = 0; j < tileArray.length; j++){
 				if (this.tileArray[i][j].getUnitOnTile().getPreferedX() < i && this.tileArray[i][j].getUnitOnTile().getPreferedY() < j){
-					moveUp(this.tileArray[i][j].getUnitOnTile());
-					moveRight(this.tileArray[i][j].getUnitOnTile());
+					moveDown(i, j);
+					moveLeft(i, j);
 				}
-				else if()
+				else if(this.tileArray[i][j].getUnitOnTile().getPreferedX() > i && this.tileArray[i][j].getUnitOnTile().getPreferedY() < j){
+					moveDown(i, j);
+					moveRight(i, j);
+				}
+				else if(this.tileArray[i][j].getUnitOnTile().getPreferedX() < i && this.tileArray[i][j].getUnitOnTile().getPreferedY() > j){
+					moveUp(i, j);
+					moveLeft(i, j);
+				}
+				else if(this.tileArray[i][j].getUnitOnTile().getPreferedX() > i && this.tileArray[i][j].getUnitOnTile().getPreferedY() > j){
+					moveUp(i, j);
+					moveRight(i, j);
+				}
 			}
 		}
 	}
 
+	public void moveUp(int x, int y){
+		if (this.tileArray[x][y + 1].getTerrainOnTile().isPassable() == true && this.tileArray[x][y + 1].isHasUnit() == false && this.tileArray[x][y + 1].getTerrainOnTile().getCrossPenalty() < this.tileArray[x][y].getUnitOnTile().getCurrentMoves()){
+			this.tileArray[x][y].setHasUnit(false);
+			this.tileArray[x][y + 1].setHasUnit(true);
+			this.tileArray[x][y].getUnitOnTile().lowerMoves(this.tileArray[x][y + 1].getTerrainOnTile().getCrossPenalty());
+			this.tileArray[x][y + 1].setUnitOnTile(this.tileArray[x][y].getUnitOnTile());
+			this.tileArray[x][y].setUnitOnTile(null);
+			//Update GUI
+		}
+	}
+	
+	public void moveDown(int x, int y){
+		if (this.tileArray[x][y - 1].getTerrainOnTile().isPassable() == true && this.tileArray[x][y - 1].isHasUnit() == false && this.tileArray[x][y - 1].getTerrainOnTile().getCrossPenalty() < this.tileArray[x][y].getUnitOnTile().getCurrentMoves()){
+			this.tileArray[x][y].setHasUnit(false);
+			this.tileArray[x][y - 1].setHasUnit(true);
+			this.tileArray[x][y].getUnitOnTile().lowerMoves(this.tileArray[x][y - 1].getTerrainOnTile().getCrossPenalty());
+			this.tileArray[x][y - 1].setUnitOnTile(this.tileArray[x][y].getUnitOnTile());
+			this.tileArray[x][y].setUnitOnTile(null);
+			//Update GUI
+		}
+	}
+	
+	public void moveLeft(int x, int y){
+		if (this.tileArray[x - 1][y].getTerrainOnTile().isPassable() == true && this.tileArray[x - 1][y].isHasUnit() == false && this.tileArray[x - 1][y].getTerrainOnTile().getCrossPenalty() < this.tileArray[x][y].getUnitOnTile().getCurrentMoves()){
+			this.tileArray[x][y].setHasUnit(false);
+			this.tileArray[x - 1][y].setHasUnit(true);
+			this.tileArray[x][y].getUnitOnTile().lowerMoves(this.tileArray[x - 1][y].getTerrainOnTile().getCrossPenalty());
+			this.tileArray[x - 1][y].setUnitOnTile(this.tileArray[x][y].getUnitOnTile());
+			this.tileArray[x][y].setUnitOnTile(null);
+			//Update GUI
+		}
+	}
+	
+	public void moveRight(int x, int y){
+		if (this.tileArray[x + 1][y].getTerrainOnTile().isPassable() == true && this.tileArray[x + 1][y].isHasUnit() == false && this.tileArray[x + 1][y].getTerrainOnTile().getCrossPenalty() < this.tileArray[x][y].getUnitOnTile().getCurrentMoves()){
+			this.tileArray[x][y].setHasUnit(false);
+			this.tileArray[x + 1][y].setHasUnit(true);
+			this.tileArray[x][y].getUnitOnTile().lowerMoves(this.tileArray[x + 1][y].getTerrainOnTile().getCrossPenalty());
+			this.tileArray[x + 1][y].setUnitOnTile(this.tileArray[x][y].getUnitOnTile());
+			this.tileArray[x][y].setUnitOnTile(null);
+			//Update GUI
+		}
+	}
+	
 	public void endTurn() {
 		this.gold += this.income;
 		this.manpower += this.manpowerIncome;

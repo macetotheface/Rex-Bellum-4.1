@@ -30,7 +30,6 @@ public class Play extends BasicGameState{
 	//private float positionX = 0;
 	//private float positionY = 0;
 
-	private int playerFactionType;
 	private int playerFactionType = 1;
 	private Image factionCrest = null;
 	private String factionKing = null;
@@ -81,8 +80,6 @@ public class Play extends BasicGameState{
 		this.farmStats = new farm();
 		this.marketStats = new market();
 		this.tileArray = new tile [35][35];
-
-		
 	}
 
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)throws SlickException{

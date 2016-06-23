@@ -16,6 +16,7 @@ private int currentAttack; //the current attack for the unit
 private int currentMoves; //the current number of moves for the unit
 private int currentRange; //the current number of range for the unit
 private int price; //The price in gold of the unit
+private int upkeep;
 private int [] preferedLocation = new int [2];	//The location where the unit wants to go to 
 
 private double flankMod; //the flank modifier for the unit
@@ -228,6 +229,20 @@ public void setPreferedLocation(int[] preferedLocation) {
 	this.preferedLocation = preferedLocation;
 }
 
+/**
+ * @return the upkeep
+ */
+public int getUpkeep() {
+	return upkeep;
+}
+
+/**
+ * @param upkeep the upkeep to set
+ */
+public void setUpkeep(int upkeep) {
+	this.upkeep = upkeep;
+}
+
 public void setPreferedX(int x){
 	this.preferedLocation[0] = x;
 }
@@ -243,6 +258,10 @@ public int getPreferedX(){
 
 public int getPreferedY(){
 	return preferedLocation[1];
+}
+
+public void lowerMoves(int x){
+	this.currentMoves -= x;
 }
 
 }

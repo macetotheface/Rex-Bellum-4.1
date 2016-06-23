@@ -4,6 +4,8 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
+import org.newdawn.slick.state.transition.FadeInTransition;
+import org.newdawn.slick.state.transition.FadeOutTransition;
 
 public class Menu extends BasicGameState{
 
@@ -33,7 +35,7 @@ public class Menu extends BasicGameState{
 		
 		if((xpos > 50 && xpos < 250) && (ypos > 480 && ypos < 500)){
 			if(input.isMouseButtonDown(0)){
-				sbg.enterState(1);
+				sbg.enterState(2, new FadeOutTransition(), new FadeInTransition());
 			}
 		}
 		
