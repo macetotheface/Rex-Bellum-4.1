@@ -30,6 +30,7 @@ public class Play extends BasicGameState{
 	//private float positionX = 0;
 	//private float positionY = 0;
 
+<<<<<<< HEAD
 
 	private Image barracks;
 	private Image market;
@@ -40,6 +41,9 @@ public class Play extends BasicGameState{
 	private int playerFactionType = 4;
 
 
+=======
+	private int playerFactionType = 4;
+>>>>>>> refs/remotes/origin/master
 	private Image factionCrest = null;
 	private String factionKing = null;
 	private faction playerFaction;
