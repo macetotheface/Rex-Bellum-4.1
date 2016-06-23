@@ -38,10 +38,7 @@ public class Play extends BasicGameState{
 
 	//chooseFaction faction = new chooseFaction(1);
 
-	private int playerFactionType = 4;
-
-
-
+	private int playerFactionType = 1;
 	private Image factionCrest = null;
 	private String factionKing = null;
 	private faction playerFaction;
@@ -65,9 +62,7 @@ public class Play extends BasicGameState{
 	public String mouse = "no input yet";
 	
 	public Play(int state) throws SlickException{
-
 	}
-
 
 	
 	public void init(GameContainer gc, StateBasedGame sbg)throws SlickException{	
@@ -177,7 +172,12 @@ public class Play extends BasicGameState{
 		if(isMouseClicked == true) {
 
 			tileID = (map.getTileId(tileLocationX,tileLocationY,terrainInput))-1;
-			//gc.sleep(16);
+			tileX =tileLocationX;
+			tiley = tileLocationY;
+			if(tileArray[tileLocationX ][tileLocationY].isHasUnit()== true){
+				tileX =tileLocationX;
+				tiley = tileLocationY;
+			}
 			System.out.println(tileID);
 		}
 		}
