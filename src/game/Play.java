@@ -3,6 +3,7 @@ package game;
 
 import java.util.List;
 import org.lwjgl.*;
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import mechanics.*;
 import org.lwjgl.opengl.Display;
@@ -12,9 +13,6 @@ import org.newdawn.slick.tiled.*;
 
 public class Play extends BasicGameState{
 
-	//private boolean mousePressed;
-
-	//private Input input;
 	private int xpos = 200;
 	private int ypos = 200;
 	private int tileID = 23;
@@ -30,8 +28,6 @@ public class Play extends BasicGameState{
 	private Image barracks;
 	private Image market;
 	private Image farm;
-
-	//chooseFaction faction = new chooseFaction(1);
 
 	private int playerFactionType = 1;
 	private Image factionCrest = null;
@@ -74,7 +70,6 @@ public class Play extends BasicGameState{
 		uiElements[2] = new Image("/res/Wealth.png");
 		uiElements[3] = new Image("/res/Troops.png");
 		uiElements[4] = new Image("/res/Slaves.png");
-		//holder = new Image("res/placeholder.png");
 		
 		this.playerFaction = new faction(true, 1, tileArray);
 		this.aiFaction1 = new faction(false, 2, tileArray);
@@ -105,15 +100,7 @@ public class Play extends BasicGameState{
 		factionCrest = getImage(playerFactionType);
 		factionKing = getKing(playerFactionType);
 
-		//g.scale(1f, 1f);
-		//g.scale(Display.getWidth()/720, Display.getHeight()/600);
-
-		//map.render(0,0,0,-3,560,560);
-
-
 		map.render(0,0,0,0,720,600);
-		//holder.draw(100,100,32,32);
-		//g.draw()
 		g.drawString(mouse, 50, 50);
 		g.drawRect(560, 489, 53, 53);
 		market.draw(560,489,53,53);
@@ -160,9 +147,11 @@ public class Play extends BasicGameState{
 	}
 
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)throws SlickException{
+		Input input = gc.getInput();
+		if(input.isKeyPressed(Keyboard.KEY_UP)){
+			System.out.println("hi");
+		}
 		
-
-		//input = gc.getInput();
 		int terrainInput = map.getLayerIndex("InputLayer");
 		xpos = Mouse.getX();
 		ypos = Mouse.getY();
@@ -174,7 +163,8 @@ public class Play extends BasicGameState{
 		int tileLocationX = Math.round(xpos)/map.getTileWidth();
 		int tileLocationY = Math.round(600-ypos)/(map.getTileHeight());
 		
-		if(isMouseClicked == true) {
+		if(isMouseClicked == true && xpos < 570 && ypos < 560) {
+	
 
 			tileID = (map.getTileId(tileLocationX,tileLocationY,terrainInput))-1;
 			tileX =tileLocationX;
@@ -218,18 +208,6 @@ public class Play extends BasicGameState{
 			System.out.println("move");
 		}
 		}
-		//if(isMouseClicked == true && xpos==(archerx) && (600-ypos)==(archery)){
-			//System.out.println("hi");
-			//if(isMouseClicked == true){
-			//System.out.println("hello");
-			//archerx=xpos;
-			//archery=(600-ypos);
-		
-
-		//}
-	
-
-
 	//Created Methods
 
 	private void intializeTiles(){
