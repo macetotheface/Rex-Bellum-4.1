@@ -371,6 +371,20 @@ public class faction {
 		this.gold -= this.barrackStats.getPrice();
 	}
 
+	//Checking to make sure player move is valid and making changes
+	public void movePlayer(int x, int y, int newX, int newY){
+		if (Math.abs(newX - x) == 1 && Math.abs(newY - y) == 1 && tileArray[newX][newY].getTerrainOnTile().isPassable() == true){
+			if (this.tileArray[newX][newY].isHasmarket() == true){
+				if (this.tileArray[newX][newY].getUnitOnTile().getFactionType() != factionType){
+					
+				}
+				else{
+					
+				}
+				
+			}
+		}
+	}
 	public boolean isPlayer() {
 		return isPlayer;
 	}
