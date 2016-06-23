@@ -17,7 +17,7 @@ public class faction {
 	private boolean isPlayer;		//Holds whether or not the faction is controlled by the player
 	private tile [][] tileArray;	//Holds the map of tiles
 	private int [] capitalLocation;	//Holds the location of the factions capital
-
+	
 	public faction(boolean isPlayerBool, int factionNum, tile [][] tileArrayTemp) {
 		//Gives starting values
 		this.numOfUnits = 0;
@@ -29,7 +29,7 @@ public class faction {
 		this.factionType = factionNum;
 		this.capitalLocation = new int [2];
 		this.tileArray = tileArrayTemp;
-		
+				
 		//Sets the capital depending 
 		if(this.factionType == 1){
 			
@@ -373,15 +373,36 @@ public class faction {
 
 	//Checking to make sure player move is valid and making changes
 	public void movePlayer(int x, int y, int newX, int newY){
+		combatMechanics fighting;
 		if (Math.abs(newX - x) == 1 && Math.abs(newY - y) == 1 && tileArray[newX][newY].getTerrainOnTile().isPassable() == true){
 			if (this.tileArray[newX][newY].isHasUnit() == true){
+				//Fight enemy unit
 				if (this.tileArray[newX][newY].getUnitOnTile().getFactionType() != factionType){
-					
+					fighting = new combatMechanics (this.tileArray[x][y].getUnitOnTile(), this.tileArray[newX][newY].getUnitOnTile(),this.tileArray[newX][newY].getTerrainOnTile());
+					this.tileArray[x][y].setUnitOnTile(fighting.getAttacker());
+					this.tileArray[newX][newY].setUnitOnTile(fighting.getDefender());
+					if (this.tileArray[x][y].getUnitOnTile().getCurrentHealth() <= 0){
+						this.tileArray[x][y].setUnitOnTile(null);
+						this.tileArray[x][y].setHasUnit(false);
+						//Update GUI
+					}
+					else if(this.tileArray[newX][newY].getUnitOnTile().getCurrentHealth() <= 0){
+						this.tileArray[newX][newY].setUnitOnTile(this.tileArray[x][y].getUnitOnTile());
+						this.tileArray[x][y].setUnitOnTile(null);
+						this.tileArray[x][y].setHasUnit(false);
+						//Update GUI
+					}
 				}
-				else{
-					
-				}
-				
+				//Can't move into friendly unit
+			}
+			else{
+				//Move the unit
+				this.tileArray[x][y].setHasUnit(false);
+				this.tileArray[newX][newY].setHasUnit(true);
+				this.tileArray[x][y].getUnitOnTile().lowerMoves(this.tileArray[newX][newY].getTerrainOnTile().getCrossPenalty());
+				this.tileArray[newX][newY].setUnitOnTile(this.tileArray[x][y].getUnitOnTile());
+				this.tileArray[x][y].setUnitOnTile(null);
+				//Update GUI
 			}
 		}
 	}
