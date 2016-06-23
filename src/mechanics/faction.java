@@ -377,23 +377,23 @@ public class faction {
 	//Checking to make sure player move is valid and making changes
 	public void movePlayer(int x, int y, int newX, int newY){
 		combatMechanics fighting;
-		if (Math.abs(newX - x) == 1 && Math.abs(newY - y) == 1 && tileArray[newX][newY].getTerrainOnTile().isPassable() == true){
+		if (Math.abs(newX - x) <= 1 && Math.abs(newY - y) <= 1 && tileArray[newX][newY].getTerrainOnTile().isPassable() == true && this.tileArray[x][y].getUnitOnTile().getCurrentMoves() >= this.tileArray[newX][newY].getTerrainOnTile().getCrossPenalty()){
+			System.out.println("Has unit on old unit FACTION2:" + tileArray[x][y].isHasUnit());	
 			if (this.tileArray[newX][newY].isHasUnit() == true){
-				//Fight enemy unit
 				if (this.tileArray[newX][newY].getUnitOnTile().getFactionType() != factionType){
 					fighting = new combatMechanics (this.tileArray[x][y].getUnitOnTile(), this.tileArray[newX][newY].getUnitOnTile(),this.tileArray[newX][newY].getTerrainOnTile());
+					this.tileArray[x][y].getUnitOnTile().setCurrentMoves(0);
 					this.tileArray[x][y].setUnitOnTile(fighting.getAttacker());
 					this.tileArray[newX][newY].setUnitOnTile(fighting.getDefender());
+					this.tileArray[x][y].getUnitOnTile().lowerMoves(this.tileArray[newX][newY].getTerrainOnTile().getCrossPenalty());
 					if (this.tileArray[x][y].getUnitOnTile().getCurrentHealth() <= 0){
 						this.tileArray[x][y].setUnitOnTile(null);
 						this.tileArray[x][y].setHasUnit(false);
-						//Update GUI
 					}
 					else if(this.tileArray[newX][newY].getUnitOnTile().getCurrentHealth() <= 0){
 						this.tileArray[newX][newY].setUnitOnTile(this.tileArray[x][y].getUnitOnTile());
 						this.tileArray[x][y].setUnitOnTile(null);
 						this.tileArray[x][y].setHasUnit(false);
-						//Update GUI
 					}
 				}
 				//Can't move into friendly unit
@@ -473,5 +473,21 @@ public class faction {
 	public void setNumOfUnits(int numOfUnits) {
 		this.numOfUnits = numOfUnits;
 	}
+
+	/**
+	 * @return the tileArray
+	 */
+	public tile[][] getTileArray() {
+		return tileArray;
+	}
+
+	/**
+	 * @param tileArray the tileArray to set
+	 */
+	public void setTileArray(tile[][] tileArray) {
+		this.tileArray = tileArray;
+	}
+	
+	
 
 }
