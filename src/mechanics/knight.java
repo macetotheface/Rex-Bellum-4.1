@@ -13,5 +13,7 @@ public class knight extends unit {
 		this.setCurrentHealth(this.getBaseHealth());
 		this.setCurrentMoves(this.getBaseMoves());
 		this.setSheet(new SpriteSheet("/res/orcknight.png", 16,16));
+		this.setPrice(100);
+		this.setUpkeep(2);
 	}
 }

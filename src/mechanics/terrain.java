@@ -213,4 +213,20 @@ public class terrain {
 	public void setPassable(boolean passable) {
 		this.passable = passable;
 	}
+
+	/**
+	 * @return the crossPenalty
+	 */
+	public int getCrossPenalty() {
+		return crossPenalty;
+	}
+
+	/**
+	 * @param crossPenalty the crossPenalty to set
+	 */
+	public void setCrossPenalty(int crossPenalty) {
+		this.crossPenalty = crossPenalty;
+	}
+	
+	
 }
