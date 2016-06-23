@@ -297,7 +297,7 @@ public class faction {
 		for(int i = 0; i < this.tileArray.length; i++){
 			for(int j = 0; j < this.tileArray[0].length; j++){
 				if (this.tileArray[i][j].getTerrainOnTile().getBonusMarket() > check && this.tileArray[i][j].getFaction() == this.factionType && this.tileArray[i][j].isHasmarket() == false){
-					buildMarket(i,j);
+					buildMarket(i,j, this.tileArray);
 					built = true;
 				}
 			}
@@ -312,7 +312,8 @@ public class faction {
 	}
 	
 	//Changes stats to account for a new market
-	private void buildMarket(int r, int c){
+	public void buildMarket(int r, int c, tile [][] tileArrayTemp){
+		this.tileArray = tileArrayTemp;
 		this.income+= this.marketStats.getGoldPerTurn() + this.tileArray[r][c].getTerrainOnTile().getBonusMarket();
 		this.tileArray[r][c].setHasmarket(true);
 		this.gold -= this.marketStats.getPrice();
@@ -323,7 +324,7 @@ public class faction {
 		for(int i = 0; i < this.tileArray.length; i++){
 			for(int j = 0; j < this.tileArray[0].length; j++){
 				if (this.tileArray[i][j].getTerrainOnTile().getBonusFarm() > check && this.tileArray[i][j].getFaction() == this.factionType && this.tileArray[i][j].isHasFarm() == false){
-					buildFarm(i,j);
+					buildFarm(i,j, this.tileArray);
 					built = true;
 				}
 			}
@@ -338,7 +339,8 @@ public class faction {
 	}
 
 	//Changes stats to account for a new market
-	private void buildFarm(int r, int c){
+	public void buildFarm(int r, int c, tile [][] tileArrayTemp){
+		this.tileArray = tileArrayTemp;
 		this.income+= this.farmStats.getGoldPerTurn() + this.tileArray[r][c].getTerrainOnTile().getBonusFarm();
 		this.manpowerIncome += this.farmStats.getMenPerTurn() + (this.tileArray[r][c].getTerrainOnTile().getBonusFarm()*10);
 		this.tileArray[r][c].setHasmarket(true);
@@ -350,7 +352,7 @@ public class faction {
 		for(int i = 0; i < this.tileArray.length; i++){
 			for(int j = 0; j < this.tileArray[0].length; j++){
 				if (this.tileArray[i][j].getTerrainOnTile().getBonusBarracks() > check && this.tileArray[i][j].getFaction() == this.factionType && this.tileArray[i][j].isHasBarracks() == false){
-					buildBarracks(i,j);
+					buildBarracks(i,j, this.tileArray);
 					built = true;
 				}
 			}
@@ -365,7 +367,8 @@ public class faction {
 	}
 
 	//Changes stats to account for a new market
-	private void buildBarracks(int r, int c){
+	public void buildBarracks(int r, int c, tile[][] tileArrayTemp){
+		this.tileArray = tileArrayTemp;
 		this.manpowerIncome += this.barrackStats.getMenPerTurn() + (this.tileArray[r][c].getTerrainOnTile().getBonusBarracks()*10);
 		this.tileArray[r][c].setHasBarracks(true);
 		this.gold -= this.barrackStats.getPrice();
@@ -404,6 +407,15 @@ public class faction {
 				this.tileArray[x][y].setUnitOnTile(null);
 				//Update GUI
 			}
+		}
+	}
+	
+	public void playerBuildUnits(int x, int y, tile[][] tileTempArray) throws SlickException{
+		this.tileArray = tileTempArray;
+		swordsman newSword = new swordsman(this.factionType);
+		if (this.tileArray[x][y].isHasUnit() == false){
+			this.tileArray[x][y].setHasUnit(true);
+			this.tileArray[x][y].setUnitOnTile(newSword);
 		}
 	}
 	public boolean isPlayer() {

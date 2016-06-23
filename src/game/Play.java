@@ -59,6 +59,9 @@ public class Play extends BasicGameState{
 	private boolean clickedUnit = false;
 	private int tileX=0;
 	private int tiley =0;
+	private int oldX;
+	private int oldY;
+	private boolean moved;
 	public String mouse = "no input yet";
 	
 	public Play(int state) throws SlickException{
@@ -92,6 +95,9 @@ public class Play extends BasicGameState{
 		this.farmStats = new farm();
 		this.marketStats = new market();
 		this.tileArray = new tile [35][35];
+		oldX = 0;
+		oldY = 0;
+		moved = false;
 		intializeTiles();
 		tileArray[19][19].setHasUnit(true);
 		swordsman a  = new swordsman();
@@ -183,22 +189,33 @@ public class Play extends BasicGameState{
 		}
 		if(isMouseClicked == true && xpos > 560 && xpos < 613 && 111 > ypos && ypos< 164) {
 			//market
+			playerFaction.buildMarket(tileX, tiley, tileArray);
 			//System.out.println("hey");
 		}
 		if(isMouseClicked == true && xpos > 613 && xpos < 666 && 111 > ypos && ypos< 164) {
 			//farm
+			playerFaction.buildFarm(tileX, tiley, tileArray);
 			//System.out.println("hoy");
 		}
 		if(isMouseClicked == true && xpos > 666 && xpos < 720 && 111 > ypos && ypos< 164) {
 			//barracks
+			playerFaction.buildBarracks(tileX, tiley, tileArray);
 			//System.out.println("hiy");
 		}
 		if(isMouseClicked == true && xpos > 560 && xpos < 720 && ypos > 0 && ypos < 111) {
 			//end turn
+			endTurn();
 			//System.out.println("ended");
 		}
 		if(isMouseClicked == true && xpos > 635 && xpos < 720 && ypos > 350 && ypos < 526) {
 			//move unit
+			while (moved == false){
+				if (isMouseClicked == true){
+					int tileLocationX = Math.round(xpos)/map.getTileWidth();
+					int tileLocationY = Math.round(600-ypos)/(map.getTileHeight());
+					playerFaction.movePlayer(oldX,oldY,tileLocationX,tileLocationY);
+				}
+			}
 			System.out.println("move");
 		}
 		}
