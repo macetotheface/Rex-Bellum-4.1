@@ -73,12 +73,7 @@ public class Play extends BasicGameState{
 		uiElements[2] = new Image("/res/Wealth.png");
 		uiElements[3] = new Image("/res/Troops.png");
 		uiElements[4] = new Image("/res/Slaves.png");
-<<<<<<< HEAD
-		
-=======
-		//holder = new Image("res/placeholder.png");
 
->>>>>>> refs/remotes/origin/master
 		this.playerFaction = new faction(true, 1, tileArray);
 		this.aiFaction1 = new faction(false, 2, tileArray);
 		this.aiFaction2 = new faction(false, 3, tileArray);
@@ -156,13 +151,6 @@ public class Play extends BasicGameState{
 	}
 
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)throws SlickException{
-<<<<<<< HEAD
-		Input input = gc.getInput();
-		if(input.isKeyPressed(Keyboard.KEY_UP)){
-			System.out.println("hi");
-		}
-		
-=======
 
 		input = gc.getInput();
 
@@ -193,13 +181,11 @@ public class Play extends BasicGameState{
 		}
 
 		//input = gc.getInput();
->>>>>>> refs/remotes/origin/master
 		int terrainInput = map.getLayerIndex("InputLayer");
 		xpos = Mouse.getX();
 		ypos = Mouse.getY();
 		mouse = "Mouse position x:" + xpos + "y" + ypos; 
 		boolean isMouseClicked = gc.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON);
-<<<<<<< HEAD
 		
 		if(isMouseClicked == true) {
 			
@@ -208,16 +194,6 @@ public class Play extends BasicGameState{
 		
 		if(isMouseClicked == true && xpos < 570 && ypos < 560) {
 	
-=======
-
-		if(isMouseClicked == true) {
->>>>>>> refs/remotes/origin/master
-
-			int tileLocationX = Math.round(xpos)/map.getTileWidth();
-			int tileLocationY = Math.round(600-ypos)/(map.getTileHeight());
-
-			if(isMouseClicked == true && xpos < 570 && ypos < 560) {
-
 				tileID = (map.getTileId(tileLocationX,tileLocationY,terrainInput))-1;
 				tileX =tileLocationX;
 				tiley = tileLocationY;
@@ -255,9 +231,6 @@ public class Play extends BasicGameState{
 			System.out.println("Move");
 			moved = true;
 		}
-<<<<<<< HEAD
-		}
-=======
 	}
 	//if(isMouseClicked == true && xpos==(archerx) && (600-ypos)==(archery)){
 	//System.out.println("hi");
@@ -271,7 +244,6 @@ public class Play extends BasicGameState{
 
 
 
->>>>>>> refs/remotes/origin/master
 	//Created Methods
 
 	private void intializeTiles(){
