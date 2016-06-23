@@ -17,6 +17,8 @@ public archer() throws SlickException{
 	this.setSheet(new SpriteSheet("/res/archer.png", 16,16));
 	this.setPrice(100);
 	this.setUpkeep(2);
+	this.setPreferedX(0);
+	this.setPreferedY(0);
 }
 public archer(int x) throws SlickException{
 	this.setFactionType(x);

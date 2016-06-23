@@ -16,6 +16,8 @@ public class swordsman extends unit {
 		this.setCurrentMoves(this.getBaseMoves());
 		this.setSheet(new SpriteSheet("/res/elfknight.png", 16,16));
 		this.setUpkeep(2);
+		this.setPreferedX(0);
+		this.setPreferedY(0);
 	}
 	public swordsman(int x) throws SlickException{
 		this.setFactionType(x);
