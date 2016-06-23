@@ -27,12 +27,6 @@ public class combatMechanics {
 	private void meleeAttack(){
 		this.attacker.setCurrentHealth((int) ((int) defender.getCurrentAttack() * defGround.getDefenderMod()));
 		this.defender.setCurrentHealth((int) (attacker.getCurrentAttack() * attacker.getFlankMod()));
-		if (this.getAttacker().getCurrentHealth() <= 0){
-			
-		}
-		else if (this.getDefender().getCurrentHealth() <= 0){
-			
-		}
 	}
 
 	private void archerAttack(){
