@@ -11,15 +11,10 @@ import org.newdawn.slick.state.*;
 import org.newdawn.slick.tiled.*;
 
 public class Play extends BasicGameState{
-	private Animation archerani;
-	private Animation horseani;
-	private Animation knightani;
 
 	//private boolean mousePressed;
 
 	//private Input input;
-	private int archerx = 200;
-	private int archery = 200;
 	private int xpos = 200;
 	private int ypos = 200;
 	private int tileID = 23;
@@ -72,12 +67,6 @@ public class Play extends BasicGameState{
 		barracks = new Image("/res/barracks.png");
 		farm = new Image("/res/farm.png");
 		market = new Image("/res/market.png");
-		archer archerunit = new archer();
-		knight horseunit = new knight();
-		swordsman knightunit = new swordsman();
-		archerani = new Animation(archerunit.getSheet(), 250);
-		horseani = new Animation(horseunit.getSheet(), 250);
-		knightani = new Animation(knightunit.getSheet(), 250);
 		map = new TiledMap("res/map.tmx");
 
 		uiElements[0] = new Image("/res/Clock.png");
@@ -99,9 +88,17 @@ public class Play extends BasicGameState{
 		oldY = 0;
 		moved = false;
 		intializeTiles();
-		tileArray[19][19].setHasUnit(true);
-		swordsman a  = new swordsman();
-		tileArray[19][19].setUnitOnTile(a);
+		tileArray[19][14].setHasUnit(true);
+		swordsman a  = new swordsman(4);
+		tileArray[19][14].setUnitOnTile(a);
+		
+		tileArray[16][19].setHasUnit(true);
+		swordsman b  = new swordsman(1);
+		tileArray[16][19].setUnitOnTile(b);
+		
+		tileArray[15][15].setHasUnit(true);
+		swordsman c  = new swordsman(2);
+		tileArray[15][15].setUnitOnTile(c);
 	}
 
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)throws SlickException{
@@ -149,15 +146,17 @@ public class Play extends BasicGameState{
 		printTerrain(current, g, tileArray[tileX][tiley]);
 		printStats(incomeTotal, bank, manpower, troopLimit, troopCount, turnCount, g);
 
-		archerani.draw(archerx,archery);
-		horseani.draw(100,100);
-		knightani.draw(300,300);
+
 		try{
 		unitUI(tileArray[tileX][tiley].getUnitOnTile(),g);
 		}catch(NullPointerException npe){
 			
 		}
-
+		try{
+		drawUnit(tileArray, g );
+		}catch(NullPointerException npe){
+			
+		}
 	}
 
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)throws SlickException{
@@ -316,6 +315,18 @@ public class Play extends BasicGameState{
 		aiFaction1.decision(tileArray);
 		aiFaction2.decision(tileArray);
 		aiFaction3.decision(tileArray);
+	}
+	
+	private void drawUnit(tile[][] t, Graphics g){
+		for (int x = 0; x<35;x++){
+			for (int y = 0; y<35;y++){
+				if(t[x][y].isHasUnit() == true){
+					
+					g.drawAnimation(new Animation(t[x][y].getUnitOnTile().getSheet(), 250), x*16, y*16);
+				}
+				
+			}
+		}
 	}
 	public void printTerrain(terrain x, Graphics g,tile t) throws SlickException{
 		try{
