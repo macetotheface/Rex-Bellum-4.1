@@ -2,6 +2,8 @@ package game;
 
 
 import java.util.List;
+import java.util.Scanner;
+
 import org.lwjgl.*;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -52,13 +54,14 @@ public class Play extends BasicGameState{
 	private int tiley =0;
 	private int oldX;
 	private int oldY;
+	private Input input;
 	private boolean moved;
 	public String mouse = "no input yet";
-	
+
 	public Play(int state) throws SlickException{
 	}
 
-	
+
 	public void init(GameContainer gc, StateBasedGame sbg)throws SlickException{	
 		barracks = new Image("/res/barracks.png");
 		farm = new Image("/res/farm.png");
@@ -70,7 +73,12 @@ public class Play extends BasicGameState{
 		uiElements[2] = new Image("/res/Wealth.png");
 		uiElements[3] = new Image("/res/Troops.png");
 		uiElements[4] = new Image("/res/Slaves.png");
+<<<<<<< HEAD
 		
+=======
+		//holder = new Image("res/placeholder.png");
+
+>>>>>>> refs/remotes/origin/master
 		this.playerFaction = new faction(true, 1, tileArray);
 		this.aiFaction1 = new faction(false, 2, tileArray);
 		this.aiFaction2 = new faction(false, 3, tileArray);
@@ -86,14 +94,15 @@ public class Play extends BasicGameState{
 		tileArray[19][14].setHasUnit(true);
 		swordsman a  = new swordsman(4);
 		tileArray[19][14].setUnitOnTile(a);
-		
+
 		tileArray[16][19].setHasUnit(true);
 		swordsman b  = new swordsman(1);
 		tileArray[16][19].setUnitOnTile(b);
-		
+
 		tileArray[15][15].setHasUnit(true);
 		swordsman c  = new swordsman(2);
 		tileArray[15][15].setUnitOnTile(c);
+
 	}
 
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)throws SlickException{
@@ -117,15 +126,15 @@ public class Play extends BasicGameState{
 		g.drawRect(635, 174, 85, 75);
 		g.drawRect(560, 174, 158, 175);
 		g.drawRect(560, 349, 158, 140);
-		
+
 		factionCrest.draw(567, 0, 45, 45);
-		
+
 		uiElements[0].draw(10,566,35,35);
 		uiElements[1].draw(110,567,35,35);
 		uiElements[2].draw(225,567,35,35);
 		uiElements[3].draw(315,567,35,35);
 		uiElements[4].draw(445,567,35,35);
-		
+
 		g.drawString("Move Unit", 638, 202);
 		g.drawString(factionKing, 620, 10);
 		g.drawString("End Turn", 605, 560);
@@ -135,28 +144,62 @@ public class Play extends BasicGameState{
 
 
 		try{
-		unitUI(tileArray[tileX][tiley].getUnitOnTile(),g);
+			unitUI(tileArray[tileX][tiley].getUnitOnTile(),g);
 		}catch(NullPointerException npe){
-			
+
 		}
 		try{
-		drawUnit(tileArray, g );
+			drawUnit(g);
 		}catch(NullPointerException npe){
-			
+
 		}
 	}
 
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)throws SlickException{
+<<<<<<< HEAD
 		Input input = gc.getInput();
 		if(input.isKeyPressed(Keyboard.KEY_UP)){
 			System.out.println("hi");
 		}
 		
+=======
+
+		input = gc.getInput();
+
+		if(input.isKeyPressed(Keyboard.KEY_UP) && moved == true){
+			System.out.println("Has unit on old unit:" + tileArray[oldX][oldY].isHasUnit());
+			playerFaction.movePlayer(oldX, oldY, oldX, oldY - 1);
+			moved = false;
+			tileArray = playerFaction.getTileArray();
+			System.out.print("Has unit on new unit:" + tileArray[oldX][oldY + 1].isHasUnit());
+		}
+		else if(input.isKeyPressed(Keyboard.KEY_DOWN) && moved == true){
+			playerFaction.movePlayer(oldX, oldY, oldX, oldY + 1);
+			moved = false;
+			tileArray = playerFaction.getTileArray();
+			moved = false;
+		}
+		else if(input.isKeyPressed(Keyboard.KEY_LEFT) && moved == true){
+			playerFaction.movePlayer(oldX, oldY, oldX - 1, oldY);
+			moved = false;
+			tileArray = playerFaction.getTileArray();
+			moved = false;
+		}
+		else if(input.isKeyPressed(Keyboard.KEY_RIGHT) && moved == true){
+			playerFaction.movePlayer(oldX, oldY, oldX + 1, oldY);
+			moved = false;
+			tileArray = playerFaction.getTileArray();
+			moved = false;
+		}
+
+		//input = gc.getInput();
+>>>>>>> refs/remotes/origin/master
 		int terrainInput = map.getLayerIndex("InputLayer");
 		xpos = Mouse.getX();
 		ypos = Mouse.getY();
 		mouse = "Mouse position x:" + xpos + "y" + ypos; 
 		boolean isMouseClicked = gc.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON);
+<<<<<<< HEAD
 		
 		if(isMouseClicked == true) {
 			
@@ -165,16 +208,25 @@ public class Play extends BasicGameState{
 		
 		if(isMouseClicked == true && xpos < 570 && ypos < 560) {
 	
+=======
 
-			tileID = (map.getTileId(tileLocationX,tileLocationY,terrainInput))-1;
-			tileX =tileLocationX;
-			tiley = tileLocationY;
-			if(tileArray[tileLocationX ][tileLocationY].isHasUnit()== true){
+		if(isMouseClicked == true) {
+>>>>>>> refs/remotes/origin/master
+
+			int tileLocationX = Math.round(xpos)/map.getTileWidth();
+			int tileLocationY = Math.round(600-ypos)/(map.getTileHeight());
+
+			if(isMouseClicked == true && xpos < 570 && ypos < 560) {
+
+				tileID = (map.getTileId(tileLocationX,tileLocationY,terrainInput))-1;
 				tileX =tileLocationX;
 				tiley = tileLocationY;
+				if(tileArray[tileLocationX ][tileLocationY].isHasUnit()== true){
+					tileX =tileLocationX;
+					tiley = tileLocationY;
+				}
+				System.out.println(tileID);
 			}
-			System.out.println(tileID);
-		}
 		}
 		if(isMouseClicked == true && xpos > 560 && xpos < 613 && 111 > ypos && ypos< 164) {
 			//market
@@ -198,16 +250,28 @@ public class Play extends BasicGameState{
 		}
 		if(isMouseClicked == true && xpos > 635 && xpos < 720 && ypos > 350 && ypos < 526) {
 			//move unit
-			while (moved == false){
-				if (isMouseClicked == true){
-					int tileLocationX = Math.round(xpos)/map.getTileWidth();
-					int tileLocationY = Math.round(600-ypos)/(map.getTileHeight());
-					playerFaction.movePlayer(oldX,oldY,tileLocationX,tileLocationY);
-				}
-			}
-			System.out.println("move");
+			oldX = tileX;
+			oldY = tiley;
+			System.out.println("Move");
+			moved = true;
 		}
+<<<<<<< HEAD
 		}
+=======
+	}
+	//if(isMouseClicked == true && xpos==(archerx) && (600-ypos)==(archery)){
+	//System.out.println("hi");
+	//if(isMouseClicked == true){
+	//System.out.println("hello");
+	//archerx=xpos;
+	//archery=(600-ypos);
+
+
+	//}
+
+
+
+>>>>>>> refs/remotes/origin/master
 	//Created Methods
 
 	private void intializeTiles(){
@@ -218,9 +282,9 @@ public class Play extends BasicGameState{
 				if (x > 16 && y <=14)factionNum = 3;
 				if (x <= 16 && y>21)factionNum = 1;
 				if (x > 16 && y>14)factionNum = 4;
-				
+
 				tileArray[x][y] = new tile (factionNum, map.getTileId(x , y , 0));
-				
+
 			}
 		}
 	}
@@ -232,6 +296,7 @@ public class Play extends BasicGameState{
 		g.drawString("Damage: " + onT.getCurrentAttack(), 565, 290);
 		g.drawString("Range: " + onT.getCurrentRange(), 565, 310);
 	}
+
 	public Image getImage(int x) throws SlickException {
 		Image y = null;
 
@@ -294,29 +359,28 @@ public class Play extends BasicGameState{
 		aiFaction2.decision(tileArray);
 		aiFaction3.decision(tileArray);
 	}
-	
-	private void drawUnit(tile[][] t, Graphics g){
+
+	private void drawUnit(Graphics g){
 		for (int x = 0; x<35;x++){
 			for (int y = 0; y<35;y++){
-				if(t[x][y].isHasUnit() == true){
-					
-					g.drawAnimation(new Animation(t[x][y].getUnitOnTile().getSheet(), 250), x*16, y*16);
+				if(tileArray[x][y].isHasUnit() == true){
+					g.drawAnimation(new Animation(tileArray[x][y].getUnitOnTile().getSheet(), 250), x*16, y*16);
 				}
-				
+
 			}
 		}
 	}
 	public void printTerrain(terrain x, Graphics g,tile t) throws SlickException{
 		try{
 			Image z = new Image(x.getImage());
-			
+
 			z.draw(561, 350, 157, 55);
 			Image b = null;
 			if(t.getFaction()== 1) b = new Image("/res/Human_Faction_Crest.png") ;
 			if(t.getFaction()== 2) b = new Image("/res/Elf_Faction_Crest.png") ;
 			if(t.getFaction()== 3) b = new Image("/res/Dwarf_Faction_Crest.png") ;
 			if(t.getFaction()== 4) b = new Image("/res/Orc_Faction_Crest.png") ;
-			
+
 			b.draw(665, 355, 45, 45);
 		}catch(NullPointerException npe){
 

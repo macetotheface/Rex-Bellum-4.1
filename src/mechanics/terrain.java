@@ -30,7 +30,7 @@ public class terrain {
 
 
 	public terrain(int type){
-		this.terrainType = type;
+		this.terrainType = type - 1;
 		switch(terrainType){
 			case 11:
 				//Grasslands
@@ -42,7 +42,7 @@ public class terrain {
 				this.bonusFarm = 2;
 				this.bonusBarracks = 0;
 				this.image = "/res/Grassland.png";
-				this.crossPenalty = 0;
+				this.crossPenalty = 1;
 				break;
 			case 22:
 				//hills
@@ -53,7 +53,7 @@ public class terrain {
 				this.bonusFarm = 0;
 				this.bonusBarracks = 0;
 				this.image = "/res/Hill.png";
-				this.crossPenalty = 1;
+				this.crossPenalty = 2;
 				break;
 			case 14:
 				//mountains
@@ -64,7 +64,7 @@ public class terrain {
 				this.bonusFarm = 0;
 				this.bonusBarracks = 0;
 				this.image = "/res/Mountains.png";
-				this.crossPenalty = 0;
+				this.crossPenalty = 1;
 				break;
 			case 18:
 				//forests
@@ -75,7 +75,7 @@ public class terrain {
 				this.bonusBarracks = 2;
 				this.bonusFarm = 0;
 				this.image = "/res/Forrest.png";
-				this.crossPenalty = 1;
+				this.crossPenalty = 2;
 				break;
 			case 34:
 				//rivers
@@ -86,7 +86,7 @@ public class terrain {
 				this.bonusFarm = 0;
 				this.bonusBarracks = 0;
 				this.image = "/res/River.png";
-				this.crossPenalty = 1;
+				this.crossPenalty = 2;
 				break;
 			case 24:
 				//Bridge
@@ -97,7 +97,7 @@ public class terrain {
 				this.bonusFarm = 0;
 				this.bonusBarracks = 0;
 				this.image = "/res/Bridge.jpg";
-				this.crossPenalty = 0;
+				this.crossPenalty = 1;
 				break;
 			case 23:
 				//Village
@@ -108,7 +108,7 @@ public class terrain {
 				this.bonusFarm = 1;
 				this.bonusBarracks = 1;
 				this.image = "/res/Village.png";
-				this.crossPenalty = 0;
+				this.crossPenalty = 1;
 				break;
 			case 30:
 				//Village
@@ -119,7 +119,7 @@ public class terrain {
 				this.bonusFarm = 1;
 				this.bonusBarracks = 1;
 				this.image = "/res/Village.png";
-				this.crossPenalty = 0;
+				this.crossPenalty = 1;
 				break;
 			case 19:
 				//Keep
@@ -130,7 +130,7 @@ public class terrain {
 				this.bonusFarm = 0;
 				this.bonusBarracks = 0;
 				this.image = "/res/Keep.jpg";
-				this.crossPenalty = 0;
+				this.crossPenalty = 1;
 				break;
 		}
 		
