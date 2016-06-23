@@ -11,7 +11,6 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 
 public class chooseFaction extends BasicGameState{
 
-	public String mouse = "no input yet";
 	Image humancity;
 	Image elfcity;
 	Image orccity;
@@ -45,7 +44,6 @@ public class chooseFaction extends BasicGameState{
 		elfcity.draw(0,300,360,300);
 		dwarfcity.draw(360, 0, 360, 300);
 		orccity.draw(360, 300, 360, 300);
-		g.drawString(mouse, 50, 50);
 		//g.drawString("play humans", 100, 150);
 		ttf.drawString(260, 280, "Choose Faction", Color.white);
 		ttf2.drawString(120, 140, "Humans", Color.cyan);
@@ -64,8 +62,6 @@ public class chooseFaction extends BasicGameState{
 		Input input = gc.getInput();
 		int xpos = Mouse.getX();
 		int ypos = Mouse.getY();
-		mouse = "Mouse position x:" + xpos + "y" + ypos; 
-		
 		
 		if((xpos > 0 && xpos < 360) && (ypos > 0 && ypos < 300)){
 			if(input.isMouseButtonDown(0)){

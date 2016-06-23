@@ -30,7 +30,20 @@ public class Play extends BasicGameState{
 	//private float positionX = 0;
 	//private float positionY = 0;
 
+<<<<<<< HEAD
+
+	private Image barracks;
+	private Image market;
+	private Image farm;
+
+	//chooseFaction faction = new chooseFaction(1);
+
 	private int playerFactionType = 4;
+
+
+=======
+	private int playerFactionType = 4;
+>>>>>>> refs/remotes/origin/master
 	private Image factionCrest = null;
 	private String factionKing = null;
 	private faction playerFaction;
@@ -54,11 +67,15 @@ public class Play extends BasicGameState{
 	public String mouse = "no input yet";
 	
 	public Play(int state) throws SlickException{
+
 	}
 
 
 	
 	public void init(GameContainer gc, StateBasedGame sbg)throws SlickException{	
+		barracks = new Image("/res/barracks.png");
+		farm = new Image("/res/farm.png");
+		market = new Image("/res/market.png");
 		archer archerunit = new archer();
 		knight horseunit = new knight();
 		swordsman knightunit = new swordsman();
@@ -94,31 +111,41 @@ public class Play extends BasicGameState{
 
 		//g.scale(1f, 1f);
 		//g.scale(Display.getWidth()/720, Display.getHeight()/600);
+
+		//map.render(0,0,0,-3,560,560);
+
+
 		map.render(0,0,0,0,720,600);
 		//holder.draw(100,100,32,32);
 		//g.draw()
 		g.drawString(mouse, 50, 50);
-
+		g.drawRect(560, 489, 53, 53);
+		market.draw(560,489,53,53);
+		g.drawRect(613, 489, 53, 53);
+		farm.draw(613,489,53,53);
+		g.drawRect(666, 489, 53, 53);
+		barracks.draw(666,489,53,53);
 		g.drawRect(560, 0, 158, 47);
 		g.drawRect(560, 48, 158, 551);
 		g.drawRect(0, 560, 560, 47);
 		g.drawRect(560, 48, 158, 100);
 		g.drawRect(560, 149, 158, 25);
 		g.drawRect(560, 174, 75, 75);
+		g.drawRect(635, 174, 85, 75);
 		g.drawRect(560, 174, 158, 175);
 		g.drawRect(560, 349, 158, 140);
-
+		
 		factionCrest.draw(567, 0, 45, 45);
-
+		
 		uiElements[0].draw(10,566,35,35);
 		uiElements[1].draw(110,567,35,35);
 		uiElements[2].draw(225,567,35,35);
 		uiElements[3].draw(315,567,35,35);
 		uiElements[4].draw(445,567,35,35);
 		
-
+		g.drawString("Move Unit", 638, 202);
 		g.drawString(factionKing, 620, 10);
-
+		g.drawString("End Turn", 605, 560);
 		terrain current = new terrain(tileID);
 		printTerrain(current, g, tileArray[tileX][tiley]);
 		printStats(incomeTotal, bank, manpower, troopLimit, troopCount, turnCount, g);
@@ -143,21 +170,49 @@ public class Play extends BasicGameState{
 		ypos = Mouse.getY();
 		mouse = "Mouse position x:" + xpos + "y" + ypos; 
 		boolean isMouseClicked = gc.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON);
+		
+		if(isMouseClicked == true) {
+			
 		int tileLocationX = Math.round(xpos)/map.getTileWidth();
 		int tileLocationY = Math.round(600-ypos)/(map.getTileHeight());
 		
 		if(isMouseClicked == true) {
+
 			tileID = (map.getTileId(tileLocationX,tileLocationY,terrainInput))-1;
-			tileX =tileLocationX;
-			tiley = tileLocationY;
-			if(tileArray[tileLocationX ][tileLocationY].isHasUnit()== true){
-				tileX =tileLocationX;
-				tiley = tileLocationY;
-			}
+			//gc.sleep(16);
+			System.out.println(tileID);
 		}
+		}
+		if(isMouseClicked == true && xpos > 560 && xpos < 613 && 111 > ypos && ypos< 164) {
+			//market
+			//System.out.println("hey");
+		}
+		if(isMouseClicked == true && xpos > 613 && xpos < 666 && 111 > ypos && ypos< 164) {
+			//farm
+			//System.out.println("hoy");
+		}
+		if(isMouseClicked == true && xpos > 666 && xpos < 720 && 111 > ypos && ypos< 164) {
+			//barracks
+			//System.out.println("hiy");
+		}
+		if(isMouseClicked == true && xpos > 560 && xpos < 720 && ypos > 0 && ypos < 111) {
+			//end turn
+			//System.out.println("ended");
+		}
+		if(isMouseClicked == true && xpos > 635 && xpos < 720 && ypos > 350 && ypos < 526) {
+			//move unit
+			System.out.println("move");
+		}
+		}
+		//if(isMouseClicked == true && xpos==(archerx) && (600-ypos)==(archery)){
+			//System.out.println("hi");
+			//if(isMouseClicked == true){
+			//System.out.println("hello");
+			//archerx=xpos;
+			//archery=(600-ypos);
+		
 
 		//}
-	}
 	
 
 
