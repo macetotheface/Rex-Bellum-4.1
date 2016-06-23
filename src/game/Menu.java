@@ -33,7 +33,6 @@ public class Menu extends BasicGameState{
 		int ypos = Mouse.getY();
 		mouse = "Mouse position x:" + xpos + "y" + ypos; 
 		
-		
 		if((xpos > 50 && xpos < 250) && (ypos > 480 && ypos < 500)){
 			if(input.isMouseButtonDown(0)){
 				sbg.enterState(2, new FadeOutTransition(), new FadeInTransition());

@@ -29,6 +29,7 @@ public class Play extends BasicGameState{
 	//private int[] duration = {200,200};
 	//private float positionX = 0;
 	//private float positionY = 0;
+<<<<<<< HEAD
 
 	private Image barracks;
 	private Image market;
@@ -40,6 +41,10 @@ public class Play extends BasicGameState{
 
 	//private int playerFactionType = 2;
 
+=======
+
+	private int playerFactionType = 1;
+>>>>>>> refs/remotes/origin/master
 	private Image factionCrest = null;
 	private String factionKing = null;
 	private faction playerFaction;
@@ -63,9 +68,12 @@ public class Play extends BasicGameState{
 	public String mouse = "no input yet";
 	
 	public Play(int state) throws SlickException{
+<<<<<<< HEAD
 
 	  //playerFactionType = FactionNum;
 
+=======
+>>>>>>> refs/remotes/origin/master
 	}
 
 
@@ -89,10 +97,10 @@ public class Play extends BasicGameState{
 		uiElements[4] = new Image("/res/Slaves.png");
 		//holder = new Image("res/placeholder.png");
 		
-		this.playerFaction = new faction(true, 1);
-		this.aiFaction1 = new faction(false, 2);
-		this.aiFaction2 = new faction(false, 3);
-		this.aiFaction3 = new faction(false, 4);
+		this.playerFaction = new faction(true, 1, tileArray);
+		this.aiFaction1 = new faction(false, 2, tileArray);
+		this.aiFaction2 = new faction(false, 3, tileArray);
+		this.aiFaction3 = new faction(false, 4, tileArray);
 		this.barracksStats = new barracks();
 		this.farmStats = new farm();
 		this.marketStats = new market();
@@ -101,10 +109,6 @@ public class Play extends BasicGameState{
 		tileArray[19][19].setHasUnit(true);
 		swordsman a  = new swordsman();
 		tileArray[19][19].setUnitOnTile(a);
-		
-		
-		
-		
 	}
 
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)throws SlickException{
@@ -113,9 +117,12 @@ public class Play extends BasicGameState{
 
 		//g.scale(1f, 1f);
 		//g.scale(Display.getWidth()/720, Display.getHeight()/600);
+<<<<<<< HEAD
 
 		//map.render(0,0,0,-3,560,560);
 
+=======
+>>>>>>> refs/remotes/origin/master
 		map.render(0,0,0,0,720,600);
 		//holder.draw(100,100,32,32);
 		//g.draw()
@@ -171,12 +178,19 @@ public class Play extends BasicGameState{
 		ypos = Mouse.getY();
 		mouse = "Mouse position x:" + xpos + "y" + ypos; 
 		boolean isMouseClicked = gc.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON);
+<<<<<<< HEAD
 		if(isMouseClicked == true) {
 			
 		int tileLocationX = Math.round(xpos)/map.getTileWidth();
 		int tileLocationY = Math.round(600-ypos)/(map.getTileHeight());
 		
 		if(isMouseClicked == true && xpos<560 && ypos>111) {
+=======
+		int tileLocationX = Math.round(xpos)/map.getTileWidth();
+		int tileLocationY = Math.round(600-ypos)/(map.getTileHeight());
+		
+		if(isMouseClicked == true) {
+>>>>>>> refs/remotes/origin/master
 			tileID = (map.getTileId(tileLocationX,tileLocationY,terrainInput))-1;
 			//gc.sleep(16);
 			System.out.println(tileID);
@@ -291,7 +305,7 @@ public class Play extends BasicGameState{
 		g.drawString(Integer.toString(men) + "/" + Integer.toString(menCap) , 485, 578);
 	}
 
-	private void endTurn(){
+	private void endTurn() throws SlickException{
 		playerFaction.endTurn();
 		aiFaction1.endTurn();
 		aiFaction2.endTurn();
@@ -321,12 +335,6 @@ public class Play extends BasicGameState{
 		g.drawString(x.getBonusBarracks() + " + Barracks", 566, 440);
 		g.drawString(x.getBonusMarket() + "  + Markets", 566, 455);
 		g.drawString(x.getBonusFarm() + "  + Farms", 566, 470);
-	}
-	
-	public void test(){
-		tileArray[0][0] = new tile(1,14);
-		aiFaction1.factionTest(tileArray);
-		System.out.println(tileArray[0][0].getFaction() + "Test 2");
 	}
 
 	public int getID() {
