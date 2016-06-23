@@ -30,7 +30,7 @@ public class Play extends BasicGameState{
 	//private float positionX = 0;
 	//private float positionY = 0;
 
-	private int playerFactionType = 2;
+	private int playerFactionType;
 	private Image factionCrest = null;
 	private String factionKing = null;
 	private faction playerFaction;
@@ -72,17 +72,16 @@ public class Play extends BasicGameState{
 		uiElements[4] = new Image("/res/Slaves.png");
 		//holder = new Image("res/placeholder.png");
 		
-		this.playerFaction = new faction(true, 1);
-		this.aiFaction1 = new faction(false, 2);
-		this.aiFaction2 = new faction(false, 3);
-		this.aiFaction3 = new faction(false, 4);
+		this.playerFaction = new faction(true, 1, tileArray);
+		this.aiFaction1 = new faction(false, 2, tileArray);
+		this.aiFaction2 = new faction(false, 3, tileArray);
+		this.aiFaction3 = new faction(false, 4, tileArray);
 		this.barracksStats = new barracks();
 		this.farmStats = new farm();
 		this.marketStats = new market();
 		this.tileArray = new tile [35][35];
 
-		//start();
-		test();
+		
 	}
 
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)throws SlickException{
@@ -218,7 +217,7 @@ public class Play extends BasicGameState{
 		g.drawString(Integer.toString(men) + "/" + Integer.toString(menCap) , 485, 578);
 	}
 
-	private void endTurn(){
+	private void endTurn() throws SlickException{
 		playerFaction.endTurn();
 		aiFaction1.endTurn();
 		aiFaction2.endTurn();
@@ -240,12 +239,6 @@ public class Play extends BasicGameState{
 		g.drawString(x.getBonusBarracks() + " + Barracks", 566, 440);
 		g.drawString(x.getBonusMarket() + "  + Markets", 566, 455);
 		g.drawString(x.getBonusFarm() + "  + Farms", 566, 470);
-	}
-	
-	public void test(){
-		tileArray[0][0] = new tile(1,14);
-		aiFaction1.factionTest(tileArray);
-		System.out.println(tileArray[0][0].getFaction() + "Test 2");
 	}
 
 	public int getID() {

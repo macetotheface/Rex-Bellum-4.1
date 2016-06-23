@@ -35,5 +35,4 @@ public class Game extends StateBasedGame{
 
 	}
 
-
 }

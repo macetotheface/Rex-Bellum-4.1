@@ -15,10 +15,8 @@ private int currentHealth; //the current health of the unit
 private int currentAttack; //the current attack for the unit
 private int currentMoves; //the current number of moves for the unit
 private int currentRange; //the current number of range for the unit
-
-
-
-
+private int price; //The price in gold of the unit
+private int [] preferedLocation = new int [2];	//The location where the unit wants to go to 
 
 private double flankMod; //the flank modifier for the unit
 private int moveMod; //the sum of the buffs and debuffs of the unit moves
@@ -201,6 +199,43 @@ public int getFactionType() {
 public void setFactionType(int factionType) {
 	this.factionType = factionType;
 }
+
+/**
+ * @return the price
+ */
+public int getPrice() {
+	return price;
+}
+
+/**
+ * @param price the price to set
+ */
+public void setPrice(int price) {
+	this.price = price;
+}
+
+/**
+ * @return the preferedLocation
+ */
+public int[] getPreferedLocation() {
+	return preferedLocation;
+}
+
+/**
+ * @param preferedLocation the preferedLocation to set
+ */
+public void setPreferedLocation(int[] preferedLocation) {
+	this.preferedLocation = preferedLocation;
+}
+
+public void setPreferedX(int x){
+	this.preferedLocation[0] = x;
+}
+
+public void setPreferedY(int y){
+	this.preferedLocation[1] = y;
+}
+
 
 
 

@@ -13,5 +13,6 @@ public archer() throws SlickException{
 	this.setBaseMoves(2);
 	this.setCurrentAttack(this.getBaseAttack());
 	this.setSheet(new SpriteSheet("/res/archer.png", 16,16));
+	this.setPrice(100);
 }
 }
