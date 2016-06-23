@@ -30,7 +30,7 @@ public class Play extends BasicGameState{
 	//private float positionX = 0;
 	//private float positionY = 0;
 
-	private int playerFactionType = 2;
+	private int playerFactionType = 4;
 	private Image factionCrest = null;
 	private String factionKing = null;
 	private faction playerFaction;
@@ -48,10 +48,13 @@ public class Play extends BasicGameState{
 	private int incomeTotal=0;
 	private int bank =0;
 	private int manpower = 0;
+	private boolean clickedUnit = false;
+	private int tileX=0;
+	private int tiley =0;
 	public String mouse = "no input yet";
-
+	
 	public Play(int state) throws SlickException{
-		//
+		
 	}
 
 
@@ -80,9 +83,14 @@ public class Play extends BasicGameState{
 		this.farmStats = new farm();
 		this.marketStats = new market();
 		this.tileArray = new tile [35][35];
-
-		//start();
-		test();
+		intializeTiles();
+		tileArray[19][19].setHasUnit(true);
+		swordsman a  = new swordsman();
+		tileArray[19][19].setUnitOnTile(a);
+		
+		
+		
+		
 	}
 
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)throws SlickException{
@@ -117,18 +125,22 @@ public class Play extends BasicGameState{
 		g.drawString(factionKing, 620, 10);
 
 		terrain current = new terrain(tileID);
-		printTerrain(current, g);
+		printTerrain(current, g, tileArray[tileX][tiley]);
 		printStats(incomeTotal, bank, manpower, troopLimit, troopCount, turnCount, g);
 
 		archerani.draw(archerx,archery);
 		horseani.draw(100,100);
 		knightani.draw(300,300);
-
+		try{
+		unitUI(tileArray[tileX][tiley].getUnitOnTile(),g);
+		}catch(NullPointerException npe){
+			
+		}
 
 	}
 
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)throws SlickException{
-
+		
 
 		//input = gc.getInput();
 		int terrainInput = map.getLayerIndex("InputLayer");
@@ -141,31 +153,43 @@ public class Play extends BasicGameState{
 		
 		if(isMouseClicked == true) {
 			tileID = (map.getTileId(tileLocationX,tileLocationY,terrainInput))-1;
-			//gc.sleep(16);
-			System.out.println(tileID);
+			tileX =tileLocationX;
+			tiley = tileLocationY;
+			if(tileArray[tileLocationX ][tileLocationY].isHasUnit()== true){
+				tileX =tileLocationX;
+				tiley = tileLocationY;
+			}
 		}
-		if(isMouseClicked == true && xpos==(archerx) && (600-ypos)==(archery)){
-			System.out.println("hi");
-			//if(isMouseClicked == true){
-			//System.out.println("hello");
-			//archerx=xpos;
-			//archery=(600-ypos);
-		}
+
 		//}
 	}
 	
-	public void start(){
-		int factionNum;
-		int terrainNum;
-		for (int i = 0; i < tileArray.length; i++){
-			for (int j = 0; j < tileArray.length; j++){
-				//Make some way to get the faction number and the terrain from Tiled
-				//Get faction number from math
+
+
+	//Created Methods
+
+	private void intializeTiles(){
+		int factionNum = 0;
+		for (int x = 0; x<35;x++){
+			for (int y = 0; y<35;y++){
+				if (x <= 16 && y<=21)factionNum = 2;
+				if (x > 16 && y <=14)factionNum = 3;
+				if (x <= 16 && y>21)factionNum = 1;
+				if (x > 16 && y>14)factionNum = 4;
+				
+				tileArray[x][y] = new tile (factionNum, map.getTileId(x , y , 0));
+				
 			}
 		}
 	}
-
-	//Created Methods
+	private void unitUI(unit onT,Graphics g){
+		Animation unitAni= new Animation (onT.getSheet(),250);
+		g.drawString("Health: " + onT.getCurrentHealth(), 565, 250);
+		unitAni.draw(562, 175, 70, 70);
+		g.drawString("Moves: " + onT.getCurrentMoves(), 565, 270);
+		g.drawString("Damage: " + onT.getCurrentAttack(), 565, 290);
+		g.drawString("Range: " + onT.getCurrentRange(), 565, 310);
+	}
 	public Image getImage(int x) throws SlickException {
 		Image y = null;
 
@@ -228,10 +252,18 @@ public class Play extends BasicGameState{
 		aiFaction2.decision(tileArray);
 		aiFaction3.decision(tileArray);
 	}
-	public void printTerrain(terrain x, Graphics g) throws SlickException{
+	public void printTerrain(terrain x, Graphics g,tile t) throws SlickException{
 		try{
 			Image z = new Image(x.getImage());
+			
 			z.draw(561, 350, 157, 55);
+			Image b = null;
+			if(t.getFaction()== 1) b = new Image("/res/Human_Faction_Crest.png") ;
+			if(t.getFaction()== 2) b = new Image("/res/Elf_Faction_Crest.png") ;
+			if(t.getFaction()== 3) b = new Image("/res/Dwarf_Faction_Crest.png") ;
+			if(t.getFaction()== 4) b = new Image("/res/Orc_Faction_Crest.png") ;
+			
+			b.draw(665, 355, 45, 45);
 		}catch(NullPointerException npe){
 
 		}
