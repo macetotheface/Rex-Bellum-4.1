@@ -29,8 +29,17 @@ public class Play extends BasicGameState{
 	//private int[] duration = {200,200};
 	//private float positionX = 0;
 	//private float positionY = 0;
+<<<<<<< HEAD
+	//chooseFaction faction = new chooseFaction(1);
+	
+=======
 
+<<<<<<< HEAD
 	private int playerFactionType = 4;
+=======
+>>>>>>> refs/remotes/origin/master
+	private int playerFactionType = 2;
+>>>>>>> refs/remotes/origin/master
 	private Image factionCrest = null;
 	private String factionKing = null;
 	private faction playerFaction;
@@ -54,7 +63,11 @@ public class Play extends BasicGameState{
 	public String mouse = "no input yet";
 	
 	public Play(int state) throws SlickException{
+<<<<<<< HEAD
 		
+=======
+	  //playerFactionType = FactionNum;
+>>>>>>> refs/remotes/origin/master
 	}
 
 
@@ -99,7 +112,11 @@ public class Play extends BasicGameState{
 
 		//g.scale(1f, 1f);
 		//g.scale(Display.getWidth()/720, Display.getHeight()/600);
+<<<<<<< HEAD
+		map.render(0,0,0,-3,560,560);
+=======
 		map.render(0,0,0,0,720,600);
+>>>>>>> refs/remotes/origin/master
 		//holder.draw(100,100,32,32);
 		//g.draw()
 		g.drawString(mouse, 50, 50);
@@ -148,10 +165,19 @@ public class Play extends BasicGameState{
 		ypos = Mouse.getY();
 		mouse = "Mouse position x:" + xpos + "y" + ypos; 
 		boolean isMouseClicked = gc.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON);
+<<<<<<< HEAD
+		int tileLocationX = (xpos)/16;
+		int tileLocationY = (int) ((600-ypos)/(16));
+		//if(tileLocationY > 16) tileLocationY+=2;
+			 // if(tileLocationY < 16) tileLocationY--;
+		if(isMouseClicked == true) {
+			
+=======
 		int tileLocationX = Math.round(xpos)/map.getTileWidth();
 		int tileLocationY = Math.round(600-ypos)/(map.getTileHeight());
 		
 		if(isMouseClicked == true) {
+>>>>>>> refs/remotes/origin/master
 			tileID = (map.getTileId(tileLocationX,tileLocationY,terrainInput))-1;
 			tileX =tileLocationX;
 			tiley = tileLocationY;
