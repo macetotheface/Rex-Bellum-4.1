@@ -29,6 +29,7 @@ public class Play extends BasicGameState{
 	//private int[] duration = {200,200};
 	//private float positionX = 0;
 	//private float positionY = 0;
+	//chooseFaction faction = new chooseFaction(1);
 	
 	private int playerFactionType = 2;
 	private Image factionCrest = null;
@@ -50,7 +51,7 @@ public class Play extends BasicGameState{
 	private int manpower = 0;
 	
 	public Play(int state) throws SlickException{
-		//
+	  //playerFactionType = FactionNum;
 	}
 	
 	public String mouse = "no input yet";
@@ -120,7 +121,7 @@ public class Play extends BasicGameState{
 		mouse = "Mouse position x:" + xpos + "y" + ypos; 
 		boolean isMouseClicked = gc.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON);
 		int tileLocationX = (xpos)/16;
-		int tileLocationY = (int) ((600-ypos)/(16*0.3));
+		int tileLocationY = (int) ((600-ypos)/(16));
 		//if(tileLocationY > 16) tileLocationY+=2;
 			 // if(tileLocationY < 16) tileLocationY--;
 		if(isMouseClicked == true) {
