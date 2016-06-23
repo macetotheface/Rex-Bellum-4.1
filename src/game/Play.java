@@ -29,23 +29,17 @@ public class Play extends BasicGameState{
 	//private int[] duration = {200,200};
 	//private float positionX = 0;
 	//private float positionY = 0;
-<<<<<<< HEAD
+
 	private Image barracks;
 	private Image market;
 	private Image farm;
-=======
-<<<<<<< HEAD
-	//chooseFaction faction = new chooseFaction(1);
-	
-=======
 
-<<<<<<< HEAD
+	//chooseFaction faction = new chooseFaction(1);
+
 	private int playerFactionType = 4;
-=======
->>>>>>> refs/remotes/origin/master
->>>>>>> refs/remotes/origin/master
-	private int playerFactionType = 2;
->>>>>>> refs/remotes/origin/master
+
+	//private int playerFactionType = 2;
+
 	private Image factionCrest = null;
 	private String factionKing = null;
 	private faction playerFaction;
@@ -69,11 +63,9 @@ public class Play extends BasicGameState{
 	public String mouse = "no input yet";
 	
 	public Play(int state) throws SlickException{
-<<<<<<< HEAD
-		
-=======
+
 	  //playerFactionType = FactionNum;
->>>>>>> refs/remotes/origin/master
+
 	}
 
 
@@ -186,7 +178,6 @@ public class Play extends BasicGameState{
 		
 		if(isMouseClicked == true && xpos<560 && ypos>111) {
 			tileID = (map.getTileId(tileLocationX,tileLocationY,terrainInput))-1;
-<<<<<<< HEAD
 			//gc.sleep(16);
 			System.out.println(tileID);
 		}
@@ -211,24 +202,16 @@ public class Play extends BasicGameState{
 			//move unit
 			System.out.println("move");
 		}
+		}
 		//if(isMouseClicked == true && xpos==(archerx) && (600-ypos)==(archery)){
 			//System.out.println("hi");
 			//if(isMouseClicked == true){
 			//System.out.println("hello");
 			//archerx=xpos;
 			//archery=(600-ypos);
-=======
-			tileX =tileLocationX;
-			tiley = tileLocationY;
-			if(tileArray[tileLocationX ][tileLocationY].isHasUnit()== true){
-				tileX =tileLocationX;
-				tiley = tileLocationY;
-			}
-		}
+		
 
->>>>>>> refs/remotes/origin/master
 		//}
-	}
 	
 
 
