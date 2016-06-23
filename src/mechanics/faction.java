@@ -1,5 +1,7 @@
 package mechanics;
 
+import org.newdawn.slick.SlickException;
+
 public class faction {
 
 	private int manpower;
@@ -16,6 +18,21 @@ public class faction {
 	private tile [][] tileArray;
 
 	public faction(boolean isPlayerBool, int factionNum) {
+	private int manpower;			//Holds the manpower of the faction
+	private int gold;				//Holds the gold of the faction
+	private int happiness;			//Holds the happiness of the faction
+	private int income;				//Holds the change in gold of the faction
+	private int manpowerIncome;		//Holds the change in manpower of the faction
+	private int numOfUnits;			//Holds the number of units for the faction
+	private int factionType;		//Holds which faction type it is (1-human, 2-elf, 3-dwarf, 4-orc)
+	private barracks barrackStats;	//Holds the stats of the barracks buildings
+	private farm farmStats;			//Holds the stats of the farm buildings
+	private market marketStats;		//Holds the stats of the market buildings
+	private boolean isPlayer;		//Holds whether or not the faction is controlled by the player
+	private tile [][] tileArray;	//Holds the map of tiles
+	private int [] capitalLocation;	//Holds the location of the factions capital
+
+	public faction(boolean isPlayerBool, int factionNum, tile [][] tileArrayTemp) {
 		//Gives starting values
 		this.numOfUnits = 0;
 		this.gold = 300;
@@ -24,13 +41,35 @@ public class faction {
 		this.manpowerIncome = 25;
 		this.isPlayer = isPlayerBool;
 		this.factionType = factionNum;
+		this.capitalLocation = new int [2];
+		this.tileArray = tileArrayTemp;
+		
+		//Sets the capital depending 
+		if(this.factionType == 1){
+			
+		}
+		else if(this.factionType == 2){
+			
+		}
+		else if(this.factionType == 3){
+			
+		}
+		else{
+			
+		}
 	}
 
 	// Goes through and builds a few markets/barracks/farms at the start to get
 	// it all going (FOR AI FACTIONS)
 	
 	public void decision(tile[][] tileArrayTemp) {
+	public void decision(tile[][] tileArrayTemp) throws SlickException {
+		swordsman newSword = new swordsman();
+		int preferedX = 0;
+		int preferedY = 0;
+		
 		this.tileArray = tileArrayTemp;
+		
 		//choosing what to buy
 		if (this.income < 4 && this.manpowerIncome < 40) {
 			//Build farms
@@ -50,6 +89,172 @@ public class faction {
 		} else {
 			//Build units
 			
+			switch(factionType){
+			case 1:
+				//Humans
+				for (int i = 0; i < this.tileArray.length; i++){
+					for (int j = 0; j < this.tileArray[0].length; j++){
+						//Reached the border on top, send unit to border
+						if (this.tileArray[i][j].getFaction() != factionType && this.tileArray[i][j - 1].isHasUnit() == false){
+							preferedX = i;
+							preferedY = j - 1;
+							j = tileArray[0].length;
+							i = tileArray.length;
+						}
+						//Reached the border on the right 
+						else if (this.tileArray[i][j].getFaction() != factionType && this.tileArray[i - 1][j].isHasUnit() == false){
+							preferedX = i - 1;
+							preferedY = j;
+							j = tileArray[0].length;
+							i = tileArray.length;
+						}
+					}
+				}
+				//The borders are covered, so go back and find a random tile on the other side of the border
+				for (int i = 0; i < this.tileArray.length; i++){
+					for (int j = 0; j < this.tileArray[0].length; j++){
+						if (this.tileArray[i][j].getFaction() != this.factionType && this.tileArray[i][j].isHasUnit() == false){
+							preferedX = i;
+							preferedY = j;
+						}
+					}
+				}
+				
+				break;
+			case 2:
+				//Elves
+				for (int i = 0; i < this.tileArray.length; i++){
+					for (int j = 35; j < this.tileArray[0].length; j--){
+						//Reached the border on bottom, send unit to border
+						if (this.tileArray[i][j].getFaction() != factionType && this.tileArray[i][j + 1].isHasUnit() == false){
+							preferedX = i;
+							preferedY = j + 1;
+							j = tileArray[0].length;
+							i = tileArray.length;
+						}
+						//Reached the border on the right 
+						else if (this.tileArray[i][j].getFaction() != factionType && this.tileArray[i - 1][j].isHasUnit() == false){
+							preferedX = i - 1;
+							preferedY = j;
+							j = tileArray[0].length;
+							i = tileArray.length;
+						}
+					}
+				}
+				//The borders are covered, so go back and find a random tile on the other side of the border
+				for (int i = 0; i < this.tileArray.length; i++){
+					for (int j = 0; j < this.tileArray[0].length; j++){
+						if (this.tileArray[i][j].getFaction() != this.factionType && this.tileArray[i][j].isHasUnit() == false){
+							preferedX = i;
+							preferedY = j;
+						}
+					}
+				}
+				break;
+			case 3:
+				//Dwarves
+				for (int i = 35; i < this.tileArray.length; i--){
+					for (int j = 35; j < this.tileArray[0].length; j--){
+						//Reached the border on bottom, send unit to border
+						if (this.tileArray[i][j].getFaction() != factionType && this.tileArray[i][j + 1].isHasUnit() == false){
+							preferedX = i;
+							preferedY = j + 1;
+							j = tileArray[0].length;
+							i = tileArray.length;
+						}
+						//Reached the border on the left 
+						else if (this.tileArray[i][j].getFaction() != factionType && this.tileArray[i + 1][j].isHasUnit() == false){
+							preferedX = i + 1;
+							preferedY = j;
+							j = tileArray[0].length;
+							i = tileArray.length;
+						}
+					}
+				}
+				//The borders are covered, so go back and find a random tile on the other side of the border
+				for (int i = 0; i < this.tileArray.length; i++){
+					for (int j = 0; j < this.tileArray[0].length; j++){
+						if (this.tileArray[i][j].getFaction() != this.factionType && this.tileArray[i][j].isHasUnit() == false){
+							preferedX = i;
+							preferedY = j;
+						}
+					}
+				}
+				break;
+			case 4:
+				//Orcs
+				for (int i = 35; i < this.tileArray.length; i--){
+					for (int j = 0; j < this.tileArray[0].length; j++){
+						//Reached the border on top, send unit to border
+						if (this.tileArray[i][j].getFaction() != factionType && this.tileArray[i][j - 1].isHasUnit() == false){
+							preferedX = i;
+							preferedY = j - 1;
+							j = tileArray[0].length;
+							i = tileArray.length;
+						}
+						//Reached the border on the left
+						else if (this.tileArray[i][j].getFaction() != factionType && this.tileArray[i + 1][j].isHasUnit() == false){
+							preferedX = i + 1;
+							preferedY = j;
+							j = tileArray[0].length;
+							i = tileArray.length;
+						}
+					}
+				}
+				//The borders are covered, so go back and find a random tile on the other side of the border
+				for (int i = 0; i < this.tileArray.length; i++){
+					for (int j = 0; j < this.tileArray[0].length; j++){
+						if (this.tileArray[i][j].getFaction() != this.factionType && this.tileArray[i][j].isHasUnit() == false){
+							preferedX = i;
+							preferedY = j;
+						}
+					}
+				}
+				break;
+			}
+			
+			//Build units
+			if (this.tileArray[capitalLocation[0]][capitalLocation[1]].isHasUnit() == false){
+				this.numOfUnits ++;
+				this.tileArray[capitalLocation[0]][capitalLocation[1]].setHasUnit(true);
+				this.tileArray[capitalLocation[0]][capitalLocation[1]].setUnitOnTile(newSword);
+				this.manpower -= newSword.getBaseHealth();
+				this.gold -= newSword.getPrice();
+				
+				this.tileArray[capitalLocation[0]][capitalLocation[1]].getUnitOnTile().setPreferedX(preferedX);
+				this.tileArray[capitalLocation[0]][capitalLocation[1]].getUnitOnTile().setPreferedY(preferedY);
+
+				//Update GUI
+			}
+			else if(this.tileArray[capitalLocation[0] + 1][capitalLocation[1] + 1].isHasUnit() == false){
+				this.numOfUnits ++;
+				this.tileArray[capitalLocation[0] + 1][capitalLocation[1] + 1].setHasUnit(true);
+				this.tileArray[capitalLocation[0] + 1][capitalLocation[1] + 1].setUnitOnTile(newSword);
+				this.manpower -= newSword.getBaseHealth();
+				this.gold -= newSword.getPrice();
+				//Update GUI
+			}
+			else if(this.tileArray[capitalLocation[0] - 1][capitalLocation[1] - 1].isHasUnit() == false){
+				this.numOfUnits ++;
+				this.tileArray[capitalLocation[0] - 1][capitalLocation[1] - 1].setHasUnit(true);
+				this.tileArray[capitalLocation[0] - 1][capitalLocation[1] - 1].setUnitOnTile(newSword);
+				this.manpower -= newSword.getBaseHealth();
+				this.gold -= newSword.getPrice();
+				//Update GUI
+			}
+		}
+		
+		
+		
+		//Move units
+		for (int i = 0; i < tileArray.length; i++){
+			for (int j = 0; j < tileArray.length; j++){
+				if (this.tileArray[i][j].getUnitOnTile().getPreferedX() < i && this.tileArray[i][j].getUnitOnTile().getPreferedY() < j){
+					moveUp(this.tileArray[i][j].getUnitOnTile());
+					moveRight(this.tileArray[i][j].getUnitOnTile());
+				}
+				else if()
+			}
 		}
 	}
 

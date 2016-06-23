@@ -236,7 +236,13 @@ public void setPreferedY(int y){
 	this.preferedLocation[1] = y;
 }
 
+public int getPreferedX(){
+	return preferedLocation[0];
+}
 
 
+public int getPreferedY(){
+	return preferedLocation[1];
+}
 
 }

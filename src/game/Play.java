@@ -31,6 +31,7 @@ public class Play extends BasicGameState{
 	//private float positionY = 0;
 
 	private int playerFactionType;
+	private int playerFactionType = 1;
 	private Image factionCrest = null;
 	private String factionKing = null;
 	private faction playerFaction;
