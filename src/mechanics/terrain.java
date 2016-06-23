@@ -96,7 +96,7 @@ public class terrain {
 				this.bonusMarket = 0;
 				this.bonusFarm = 0;
 				this.bonusBarracks = 0;
-				this.image = "/res/Bridge.png";
+				this.image = "/res/Bridge.jpg";
 				this.crossPenalty = 0;
 				break;
 			case 23:
