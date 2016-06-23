@@ -29,7 +29,10 @@ public class faction {
 		this.factionType = factionNum;
 		this.capitalLocation = new int [2];
 		this.tileArray = tileArrayTemp;
-				
+		this.farmStats = new farm();
+		this.barrackStats = new barracks();
+		this.marketStats = new market();
+		
 		//Sets the capital depending 
 		if(this.factionType == 1){
 			
@@ -212,25 +215,26 @@ public class faction {
 		}
 		
 		
-		
 		//Move units
 		for (int i = 0; i < tileArray.length; i++){
 			for (int j = 0; j < tileArray.length; j++){
-				if (this.tileArray[i][j].getUnitOnTile().getPreferedX() < i && this.tileArray[i][j].getUnitOnTile().getPreferedY() < j){
-					moveDown(i, j);
-					moveLeft(i, j);
-				}
-				else if(this.tileArray[i][j].getUnitOnTile().getPreferedX() > i && this.tileArray[i][j].getUnitOnTile().getPreferedY() < j){
-					moveDown(i, j);
-					moveRight(i, j);
-				}
-				else if(this.tileArray[i][j].getUnitOnTile().getPreferedX() < i && this.tileArray[i][j].getUnitOnTile().getPreferedY() > j){
-					moveUp(i, j);
-					moveLeft(i, j);
-				}
-				else if(this.tileArray[i][j].getUnitOnTile().getPreferedX() > i && this.tileArray[i][j].getUnitOnTile().getPreferedY() > j){
-					moveUp(i, j);
-					moveRight(i, j);
+				if (this.tileArray[i][j].isHasUnit() == true && this.tileArray[i][j].getUnitOnTile().getFactionType() == this.factionType){
+					if (this.tileArray[i][j].getUnitOnTile().getPreferedX() < i && this.tileArray[i][j].getUnitOnTile().getPreferedY() < j){
+						moveDown(i, j);
+						moveLeft(i, j - 1);
+					}
+					else if(this.tileArray[i][j].getUnitOnTile().getPreferedX() > i && this.tileArray[i][j].getUnitOnTile().getPreferedY() < j){
+						moveDown(i, j);
+						moveRight(i, j - 1);
+					}
+					else if(this.tileArray[i][j].getUnitOnTile().getPreferedX() < i && this.tileArray[i][j].getUnitOnTile().getPreferedY() > j){
+						moveUp(i, j);
+						moveLeft(i, j + 1);
+					}
+					else if(this.tileArray[i][j].getUnitOnTile().getPreferedX() > i && this.tileArray[i][j].getUnitOnTile().getPreferedY() > j){
+						moveUp(i, j);
+						moveRight(i, j + 1);
+					}
 				}
 			}
 		}
@@ -259,12 +263,26 @@ public class faction {
 	}
 	
 	public void moveLeft(int x, int y){
+		System.out.println("Passable:" + this.tileArray[x - 1][y].getTerrainOnTile().isPassable());
+		System.out.println("hasUnit:" + this.tileArray[x - 1][y].isHasUnit());
+		System.out.println("X: " + x + "  Y: " + y);
+		System.out.println("hasUnit: " + this.tileArray[x][y].isHasUnit());
+		System.out.println("Cross penalty:" + this.tileArray[x - 1][y].getTerrainOnTile().getCrossPenalty());
+		System.out.println("Current moves:" + this.tileArray[x][y].getUnitOnTile().getCurrentMoves());
 		if (this.tileArray[x - 1][y].getTerrainOnTile().isPassable() == true && this.tileArray[x - 1][y].isHasUnit() == false && this.tileArray[x - 1][y].getTerrainOnTile().getCrossPenalty() < this.tileArray[x][y].getUnitOnTile().getCurrentMoves()){
+			System.out.println("Got here");
 			this.tileArray[x][y].setHasUnit(false);
 			this.tileArray[x - 1][y].setHasUnit(true);
 			this.tileArray[x][y].getUnitOnTile().lowerMoves(this.tileArray[x - 1][y].getTerrainOnTile().getCrossPenalty());
 			this.tileArray[x - 1][y].setUnitOnTile(this.tileArray[x][y].getUnitOnTile());
 			this.tileArray[x][y].setUnitOnTile(null);
+			System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%55");
+			System.out.println("Passable:" + this.tileArray[x - 1][y].getTerrainOnTile().isPassable());
+			System.out.println("hasUnit:" + this.tileArray[x - 1][y].isHasUnit());
+			System.out.println("X: " + x + "  Y: " + y);
+			System.out.println("hasUnit: " + this.tileArray[x][y].isHasUnit());
+			System.out.println("Cross penalty:" + this.tileArray[x - 1][y].getTerrainOnTile().getCrossPenalty());
+			System.out.println("Current moves:" + this.tileArray[x][y].getUnitOnTile().getCurrentMoves());
 			//Update GUI
 		}
 	}
@@ -340,6 +358,8 @@ public class faction {
 
 	//Changes stats to account for a new market
 	public void buildFarm(int r, int c, tile [][] tileArrayTemp){
+		System.out.println("Built a farm");
+		System.out.println("Faction: " + this.factionType);
 		this.tileArray = tileArrayTemp;
 		this.income+= this.farmStats.getGoldPerTurn() + this.tileArray[r][c].getTerrainOnTile().getBonusFarm();
 		this.manpowerIncome += this.farmStats.getMenPerTurn() + (this.tileArray[r][c].getTerrainOnTile().getBonusFarm()*10);

@@ -30,9 +30,9 @@ public class terrain {
 
 
 	public terrain(int type){
-		this.terrainType = type - 1;
+		this.terrainType = type;
 		switch(terrainType){
-			case 11:
+			case 12:
 				//Grasslands
 				
 				this.defenderMod = 1;
@@ -44,7 +44,7 @@ public class terrain {
 				this.image = "/res/Grassland.png";
 				this.crossPenalty = 1;
 				break;
-			case 22:
+			case 23:
 				//hills
 				this.defenderMod = 2;
 				this.archerMod = 1;
@@ -55,7 +55,7 @@ public class terrain {
 				this.image = "/res/Hill.png";
 				this.crossPenalty = 2;
 				break;
-			case 14:
+			case 15:
 				//mountains
 				this.defenderMod = 0;
 				this.archerMod = 0;
@@ -66,7 +66,7 @@ public class terrain {
 				this.image = "/res/Mountains.png";
 				this.crossPenalty = 1;
 				break;
-			case 18:
+			case 19:
 				//forests
 				this.defenderMod = 0;
 				this.archerMod = -1;
@@ -77,7 +77,7 @@ public class terrain {
 				this.image = "/res/Forrest.png";
 				this.crossPenalty = 2;
 				break;
-			case 34:
+			case 35:
 				//rivers
 				this.defenderMod = 2;
 				this.archerMod = 0;
@@ -88,7 +88,7 @@ public class terrain {
 				this.image = "/res/River.png";
 				this.crossPenalty = 2;
 				break;
-			case 24:
+			case 25:
 				//Bridge
 				this.defenderMod = 2;
 				this.archerMod = 0;
@@ -99,7 +99,7 @@ public class terrain {
 				this.image = "/res/Bridge.jpg";
 				this.crossPenalty = 1;
 				break;
-			case 23:
+			case 24:
 				//Village
 				this.defenderMod = 2;
 				this.archerMod = 1;
@@ -110,7 +110,7 @@ public class terrain {
 				this.image = "/res/Village.png";
 				this.crossPenalty = 1;
 				break;
-			case 30:
+			case 31:
 				//Village
 				this.defenderMod = 2;
 				this.archerMod = 1;
@@ -121,7 +121,7 @@ public class terrain {
 				this.image = "/res/Village.png";
 				this.crossPenalty = 1;
 				break;
-			case 19:
+			case 20:
 				//Keep
 				this.defenderMod = 4;
 				this.archerMod = 2;
