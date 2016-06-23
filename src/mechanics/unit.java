@@ -264,4 +264,5 @@ public void lowerMoves(int x){
 	this.currentMoves -= x;
 }
 
+
 }

@@ -86,18 +86,22 @@ public class Play extends BasicGameState{
 		oldY = 0;
 		moved = false;
 		intializeTiles();
+		
+		/*
 		tileArray[19][14].setHasUnit(true);
-		swordsman a  = new swordsman(4);
+		swordsman a  = new swordsman(3);
 		tileArray[19][14].setUnitOnTile(a);
-
+		 */
+		
 		tileArray[16][19].setHasUnit(true);
 		swordsman b  = new swordsman(1);
 		tileArray[16][19].setUnitOnTile(b);
 
+		/*
 		tileArray[15][15].setHasUnit(true);
 		swordsman c  = new swordsman(2);
 		tileArray[15][15].setUnitOnTile(c);
-
+		*/
 	}
 
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)throws SlickException{
@@ -322,6 +326,14 @@ public class Play extends BasicGameState{
 	}
 
 	private void endTurn() throws SlickException{
+		for (int i = 0; i < tileArray.length; i++){
+			for (int j = 0; j < tileArray[0].length; j++){
+				if (tileArray[i][j].isHasUnit() == true){
+					tileArray[i][j].getUnitOnTile().setCurrentMoves(tileArray[i][j].getUnitOnTile().getBaseMoves());
+				}
+			}
+		}
+		
 		playerFaction.endTurn();
 		aiFaction1.endTurn();
 		aiFaction2.endTurn();
