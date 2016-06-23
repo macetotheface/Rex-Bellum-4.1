@@ -24,7 +24,11 @@ public class Menu extends BasicGameState{
 		castle.draw(0,0,1.2f);
 		g.drawString(mouse, 50, 50);
 		g.drawRect(50, 100, 200, 20);
-		g.drawString("Play Game!", 100, 100);
+		g.drawString("Play Game!", 110, 100);
+		g.drawRect(50, 200, 200, 20);
+		g.drawRect(50, 150, 200, 20);
+		g.drawString("Lore", 135, 200);
+		g.drawString("Instructions",100, 150);
 
 	}
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)throws SlickException{
@@ -36,6 +40,16 @@ public class Menu extends BasicGameState{
 		if((xpos > 50 && xpos < 250) && (ypos > 480 && ypos < 500)){
 			if(input.isMouseButtonDown(0)){
 				sbg.enterState(2, new FadeOutTransition(), new FadeInTransition());
+			}
+		}
+		if((xpos > 50 && xpos < 250) && (ypos > 430 && ypos < 450)){
+			if(input.isMouseButtonDown(0)){
+			System.out.println("hi");
+			}
+		}
+		if((xpos > 50 && xpos < 250) && (ypos > 380 && ypos < 400)){
+			if(input.isMouseButtonDown(0)){
+			System.out.println("hey");
 			}
 		}
 		
