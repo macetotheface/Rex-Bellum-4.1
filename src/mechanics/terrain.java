@@ -34,7 +34,6 @@ public class terrain {
 		switch(terrainType){
 			case 12:
 				//Grasslands
-				
 				this.defenderMod = 1;
 				this.archerMod = 0;
 				this.passable = true;
