@@ -222,27 +222,35 @@ public class Play extends BasicGameState{
 				System.out.println(tileID);
 			}
 		}
-		if(isMouseClicked == true && xpos > 560 && xpos < 613 && 111 > ypos && ypos< 164) {
+		
+		if(isMouseClicked == true && xpos > 560 && xpos < 613 && ypos > 58 && ypos< 111) {
 			//market
-			playerFaction.buildMarket(tileX, tiley, tileArray);
+			if (tileArray[tileX][tiley].isHasmarket() == false){
+				playerFaction.buildMarket(tileX, tiley, tileArray);	
+			}
 			//System.out.println("hey");
 		}
-		if(isMouseClicked == true && xpos > 613 && xpos < 666 && 111 > ypos && ypos< 164) {
+		else if(isMouseClicked == true && xpos > 613 && xpos < 666 && ypos > 58 && ypos < 111) {
 			//farm
-			playerFaction.buildFarm(tileX, tiley, tileArray);
+			if (tileArray[tileX][tiley].isHasFarm() == false){
+				playerFaction.buildFarm(tileX, tiley, tileArray);	
+			}
 			//System.out.println("hoy");
 		}
-		if(isMouseClicked == true && xpos > 666 && xpos < 720 && 111 > ypos && ypos< 164) {
+		else if(isMouseClicked == true && xpos > 666 && xpos < 720 && ypos > 58 && ypos < 111) {
 			//barracks
-			playerFaction.buildBarracks(tileX, tiley, tileArray);
+			if (tileArray[tileX][tiley].isHasBarracks() == false){
+				playerFaction.buildBarracks(tileX, tiley, tileArray);	
+			}
 			//System.out.println("hiy");
 		}
-		if(isMouseClicked == true && xpos > 560 && xpos < 720 && ypos > 0 && ypos < 111) {
+		else if(isMouseClicked == true && xpos > 560 && xpos < 720 && ypos > 0 && ypos < 58) {
 			//end turn
+			System.out.println("End turn");
 			endTurn();
 			//System.out.println("ended");
 		}
-		if(isMouseClicked == true && xpos > 635 && xpos < 720 && ypos > 350 && ypos < 526) {
+		else if(isMouseClicked == true && xpos > 635 && xpos < 720 && ypos > 350 && ypos < 526) {
 			//move unit
 			oldX = tileX;
 			oldY = tiley;
@@ -272,11 +280,11 @@ public class Play extends BasicGameState{
 				if (x > 16 && y <=14)factionNum = 3;
 				if (x <= 16 && y>21)factionNum = 1;
 				if (x > 16 && y>14)factionNum = 4;
-
 				tileArray[x][y] = new tile (factionNum, map.getTileId(x , y , 0));
 
 			}
 		}
+		
 	}
 	private void unitUI(unit onT,Graphics g){
 		Animation unitAni= new Animation (onT.getSheet(),250);
@@ -331,11 +339,12 @@ public class Play extends BasicGameState{
 		}
 		return y;
 	}
+	
 	private void printStats(int income, int bank, int manpower, int menCap,int men, int turn,Graphics g ){
-		g.drawString("Turn "+Integer.toString(turn), 50, 578);
-		g.drawString(Integer.toString(bank) + " Gold", 145, 578);
-		g.drawString(Integer.toString(income) + " G/T", 265, 578);
-		g.drawString(Integer.toString(manpower) + " ManPwr", 345, 578);
+		g.drawString("Turn "+ Integer.toString(turn), 50, 578);
+		g.drawString(playerFaction.getGold() + " Gold", 145, 578);
+		g.drawString(playerFaction.getIncome() + " G/T", 265, 578);
+		g.drawString(playerFaction.getManpower() + " ManPwr", 345, 578);
 		g.drawString(Integer.toString(men) + "/" + Integer.toString(menCap) , 485, 578);
 	}
 
@@ -371,7 +380,6 @@ public class Play extends BasicGameState{
 	public void printTerrain(terrain x, Graphics g,tile t) throws SlickException{
 		try{
 			Image z = new Image(x.getImage());
-
 			z.draw(561, 350, 157, 55);
 			Image b = null;
 			if(t.getFaction()== 1) b = new Image("/res/Human_Faction_Crest.png") ;

@@ -18,6 +18,7 @@ public class faction {
 	private tile [][] tileArray;	//Holds the map of tiles
 	private int [] capitalLocation;	//Holds the location of the factions capital
 	
+	//Constructor
 	public faction(boolean isPlayerBool, int factionNum, tile [][] tileArrayTemp) {
 		//Gives starting values
 		this.numOfUnits = 0;
@@ -35,24 +36,32 @@ public class faction {
 		
 		//Sets the capital depending 
 		if(this.factionType == 1){
-			
+			capitalLocation[0] = 9;
+			capitalLocation[1] = 29;
 		}
 		else if(this.factionType == 2){
-			
+			capitalLocation[0] = 7;
+			capitalLocation[1] = 12;
 		}
 		else if(this.factionType == 3){
-			
+			capitalLocation[0] = 26;
+			capitalLocation[1] = 6;
 		}
 		else{
-			
+			capitalLocation[0] = 22;
+			capitalLocation[1] = 21;
 		}
 	}
 
 	// Goes through and builds a few markets/barracks/farms at the start to get
 	// it all going (FOR AI FACTIONS)
 	
+	/**Has the ai decide what to build, and where to move units
+	 * @param tileArrayTemp
+	 * @throws SlickException
+	 */
 	public void decision(tile[][] tileArrayTemp) throws SlickException {
-		swordsman newSword = new swordsman();
+		swordsman newSword = new swordsman(this.factionType);
 		int preferedX = 0;
 		int preferedY = 0;
 		
@@ -210,6 +219,7 @@ public class faction {
 				this.gold -= newSword.getPrice();
 				this.tileArray[capitalLocation[0]][capitalLocation[1]].getUnitOnTile().setPreferedX(preferedX);
 				this.tileArray[capitalLocation[0]][capitalLocation[1]].getUnitOnTile().setPreferedY(preferedY);
+				this.tileArray[capitalLocation[0]][capitalLocation[1]].getUnitOnTile().setCurrentMoves(0);
 				//Update GUI
 			}
 		}
@@ -240,6 +250,10 @@ public class faction {
 		}
 	}
 
+	/**
+	 * @param tileArrayTemp
+	 * @throws SlickException
+	 */
 	public void moveUp(int x, int y){
 		if (this.tileArray[x][y + 1].getTerrainOnTile().isPassable() == true && this.tileArray[x][y + 1].isHasUnit() == false && this.tileArray[x][y + 1].getTerrainOnTile().getCrossPenalty() < this.tileArray[x][y].getUnitOnTile().getCurrentMoves()){
 			this.tileArray[x][y].setHasUnit(false);
@@ -261,6 +275,7 @@ public class faction {
 			//Update GUI
 		}
 	}
+	
 	
 	public void moveLeft(int x, int y){
 		System.out.println("Passable:" + this.tileArray[x - 1][y].getTerrainOnTile().isPassable());
@@ -288,6 +303,13 @@ public class faction {
 	}
 	
 	public void moveRight(int x, int y){
+		System.out.println("Passable:" + this.tileArray[x - 1][y].getTerrainOnTile().isPassable());
+		System.out.println("hasUnit:" + this.tileArray[x - 1][y].isHasUnit());
+		System.out.println("X: " + x + "  Y: " + y);
+		System.out.println("hasUnit: " + this.tileArray[x][y].isHasUnit());
+		System.out.println("Cross penalty:" + this.tileArray[x - 1][y].getTerrainOnTile().getCrossPenalty());
+		System.out.println("Current moves:" + this.tileArray[x][y].getUnitOnTile().getCurrentMoves());
+		System.out.println("Faction: " + this.factionType);
 		if (this.tileArray[x + 1][y].getTerrainOnTile().isPassable() == true && this.tileArray[x + 1][y].isHasUnit() == false && this.tileArray[x + 1][y].getTerrainOnTile().getCrossPenalty() < this.tileArray[x][y].getUnitOnTile().getCurrentMoves()){
 			this.tileArray[x][y].setHasUnit(false);
 			this.tileArray[x + 1][y].setHasUnit(true);
@@ -331,10 +353,12 @@ public class faction {
 	
 	//Changes stats to account for a new market
 	public void buildMarket(int r, int c, tile [][] tileArrayTemp){
-		this.tileArray = tileArrayTemp;
-		this.income+= this.marketStats.getGoldPerTurn() + this.tileArray[r][c].getTerrainOnTile().getBonusMarket();
-		this.tileArray[r][c].setHasmarket(true);
-		this.gold -= this.marketStats.getPrice();
+		if (tileArray[r][c].getFaction() == this.factionType){
+			this.tileArray = tileArrayTemp;
+			this.income+= this.marketStats.getGoldPerTurn() + this.tileArray[r][c].getTerrainOnTile().getBonusMarket();
+			this.tileArray[r][c].setHasmarket(true);
+			this.gold -= this.marketStats.getPrice();	
+		}
 	}
 	
 	private void aiBuildFarms(int check) {
@@ -358,13 +382,15 @@ public class faction {
 
 	//Changes stats to account for a new market
 	public void buildFarm(int r, int c, tile [][] tileArrayTemp){
-		System.out.println("Built a farm");
-		System.out.println("Faction: " + this.factionType);
-		this.tileArray = tileArrayTemp;
-		this.income+= this.farmStats.getGoldPerTurn() + this.tileArray[r][c].getTerrainOnTile().getBonusFarm();
-		this.manpowerIncome += this.farmStats.getMenPerTurn() + (this.tileArray[r][c].getTerrainOnTile().getBonusFarm()*10);
-		this.tileArray[r][c].setHasmarket(true);
-		this.gold -= this.farmStats.getPrice();
+		if (tileArray[r][c].getFaction() == this.factionType){
+			System.out.println("Built a farm");
+			System.out.println("Faction: " + this.factionType);
+			this.tileArray = tileArrayTemp;
+			this.income+= this.farmStats.getGoldPerTurn() + this.tileArray[r][c].getTerrainOnTile().getBonusFarm();
+			this.manpowerIncome += this.farmStats.getMenPerTurn() + (this.tileArray[r][c].getTerrainOnTile().getBonusFarm()*10);
+			this.tileArray[r][c].setHasmarket(true);
+			this.gold -= this.farmStats.getPrice();
+		}
 	}
 
 	private void aiBuildBarracks(int check) {
@@ -388,10 +414,12 @@ public class faction {
 
 	//Changes stats to account for a new market
 	public void buildBarracks(int r, int c, tile[][] tileArrayTemp){
-		this.tileArray = tileArrayTemp;
-		this.manpowerIncome += this.barrackStats.getMenPerTurn() + (this.tileArray[r][c].getTerrainOnTile().getBonusBarracks()*10);
-		this.tileArray[r][c].setHasBarracks(true);
-		this.gold -= this.barrackStats.getPrice();
+		if (tileArray[r][c].getFaction() == this.factionType){
+			this.tileArray = tileArrayTemp;
+			this.manpowerIncome += this.barrackStats.getMenPerTurn() + (this.tileArray[r][c].getTerrainOnTile().getBonusBarracks()*10);
+			this.tileArray[r][c].setHasBarracks(true);
+			this.gold -= this.barrackStats.getPrice();
+		}
 	}
 
 	//Checking to make sure player move is valid and making changes
